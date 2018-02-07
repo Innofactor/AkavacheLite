@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.1.0</Version>
+    <Authors>Heath Hopkins</Authors>
+    <Company>Heath Hopkins</Company>
+    <Description>Akavache without the reactive extensions</Description>
+    <PackageLicenseUrl>https://github.com/HeathHopkins/AkavacheLite/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/HeathHopkins/AkavacheLite</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/HeathHopkins/AkavacheLite</RepositoryUrl>
+    <PackageTags>Akavache, SQLite, Xamarin, object database</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

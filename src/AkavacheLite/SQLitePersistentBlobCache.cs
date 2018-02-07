@@ -3,7 +3,6 @@ using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -61,15 +60,16 @@ namespace AkavacheLite
             return Task.CompletedTask;
         }
         
-        public Task<IEnumerable<string>> GetAllKeys()
-        {
-            var query = @"
-                select Key from CacheItem 
-                where 
-                    (Time is null or Time >= ?)
-            ";
-            return Read(o => o.Query<KeyQueryResult>(query, DateTime.UtcNow.Ticks).Select(p => p.Key));
-        }
+        // todo: make this return type/key list and add to interface
+        //public Task<IEnumerable<string>> GetAllKeys()
+        //{
+        //    var query = @"
+        //        select Key from CacheItem 
+        //        where 
+        //            (Time is null or Time >= ?)
+        //    ";
+        //    return Read(o => o.Query<KeyQueryResult>(query, DateTime.UtcNow.Ticks).Select(p => p.Key));
+        //}
 
         public Task<IEnumerable<T>> GetAllObjects<T>()
         {
