@@ -79,8 +79,8 @@ namespace AkavacheLite
          * Utility methods
          */
 
-        // Attempt to ensure all outstanding operations are written to disk
-        Task Flush();
+        //// Attempt to ensure all outstanding operations are written to disk
+        //Task Flush();
 
         // Preemptively drop all expired keys and run SQLite's VACUUM method on the
         // underlying database

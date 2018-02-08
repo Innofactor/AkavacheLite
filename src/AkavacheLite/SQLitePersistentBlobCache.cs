@@ -55,21 +55,24 @@ namespace AkavacheLite
             _db.Execute(sql);
         }
 
-        public Task Flush()
+        // todo: add to interface
+        public Task<IEnumerable<KeyResult>> GetAllKeys()
         {
-            return Task.CompletedTask;
+            var query = @"
+                select Key, Type from CacheItem 
+                where 
+                    (Time is null or Time >= ?)
+            ";
+            return Read(o =>
+            {
+                return o.Query<KeyQueryResult>(query, DateTime.UtcNow.Ticks)
+                    .Select(p => new KeyResult
+                    {
+                        Key = p.Key,
+                        Type = Type.GetType(p.Type)  // todo: test this
+                    });
+            });
         }
-        
-        // todo: make this return type/key list and add to interface
-        //public Task<IEnumerable<string>> GetAllKeys()
-        //{
-        //    var query = @"
-        //        select Key from CacheItem 
-        //        where 
-        //            (Time is null or Time >= ?)
-        //    ";
-        //    return Read(o => o.Query<KeyQueryResult>(query, DateTime.UtcNow.Ticks).Select(p => p.Key));
-        //}
 
         public Task<IEnumerable<T>> GetAllObjects<T>()
         {
@@ -358,6 +361,7 @@ namespace AkavacheLite
     class KeyQueryResult
     {
         public string Key { get; set; }
+        public string Type { get; set; }
     }
 
     class DateQueryResult
@@ -370,5 +374,11 @@ namespace AkavacheLite
     {
         public string Key { get; set; }
         public T Object { get; set; }
+    }
+
+    public class KeyResult
+    {
+        public string Key { get; set; }
+        public Type Type { get; set; }
     }
 }

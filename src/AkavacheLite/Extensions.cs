@@ -18,6 +18,25 @@ namespace AkavacheLite
                 .Select(x => x.Select(v => v.Value));
         }
 
+        public static string GetDatabasePath(this IStorageProvider storageProvider, string applicationName, StorageLocation location)
+        {
+            string basePath;
+            switch (location)
+            {
+                case StorageLocation.User:
+                    basePath = storageProvider.GetPersistentCacheDirectory();
+                    break;
+                case StorageLocation.Secure:
+                    basePath = storageProvider.GetSecretCacheDirectory();
+                    break;
+                case StorageLocation.Temporary:
+                default:
+                    basePath = storageProvider.GetTemporaryCacheDirectory();
+                    break;
+            }
+            return System.IO.Path.Combine(basePath, $"{applicationName}.db");
+        }
+
         //public static IEnumerable<List<T>> Chunk2<T>(List<T> items, int size)
         //{
         //    var count = items.Count;
