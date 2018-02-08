@@ -152,7 +152,7 @@ namespace AkavacheLite
                         var args = new object[2 + chunkKeys.Length];
                         args[0] = utcTicks;
                         args[1] = typeName;
-                        keys.ToArray().CopyTo(args, 2);
+                        chunkKeys.CopyTo(args, 2);
                         return o.Query<CacheItem>(sql, args)
                             .Select(p => new GetObjectResult<T>
                             {
@@ -162,8 +162,7 @@ namespace AkavacheLite
                     });
                 });
             await Task.WhenAll(tasks).ConfigureAwait(false);
-
-            // todo: optimize for case when keys < chunkSize to prevent reiteration
+            
             return tasks
                 .SelectMany(o => o.Result)
                 .ToDictionary(o => o.Key, o => o.Object);
@@ -290,10 +289,17 @@ namespace AkavacheLite
             });
         }
 
-        public async Task Vacuum()
+        public Task Vacuum()
         {
-            await DeleteExpiredItems().ConfigureAwait(false);
-            await Write(o => o.Execute("VACUUM;", DateTime.UtcNow.Ticks)).ConfigureAwait(false);
+            return Write(o =>
+            {
+                var sqlDeleteExpired = @"
+                    delete from CacheItem
+                    where Time < ?
+                ";
+                o.Execute(sqlDeleteExpired, DateTime.UtcNow.Ticks);
+                o.Execute("VACUUM;");
+            });
         }
 
         public void Dispose()
@@ -309,7 +315,7 @@ namespace AkavacheLite
             {
                 try
                 {
-                    await _writeSemaphore.WaitAsync();  // todo: safe to configure await here?
+                    await _writeSemaphore.WaitAsync();  // todo: safe to configure await here?  ¯\_(ツ)_/¯
                     writeOperation(_db);
                 }
                 finally
@@ -321,16 +327,7 @@ namespace AkavacheLite
 
         Task<T> Read<T>(Func<SQLiteConnection, T> readOperation) =>
             Task.Run(() => readOperation(_db));
-
-        Task DeleteExpiredItems()
-        {
-            var query = @"
-                delete from CacheItem
-                where Time < ?
-            ";
-            return Write(o => o.Execute(query, DateTime.UtcNow.Ticks));
-        }
-
+        
         T Deserialize<T>(string json)
         {
             using (var reader = new System.IO.StringReader(json))
