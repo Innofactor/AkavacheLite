@@ -12,22 +12,17 @@ namespace AkavacheLite
     {
         readonly string _databasePath;
         readonly SemaphoreSlim _writeSemaphore;
-        readonly SQLiteConnection _db;
+        readonly SemaphoreSlim _createSemaphore;
         readonly JsonSerializer _serializer;
-        static readonly Type _cacheItemType = typeof(CacheItem);
+        readonly Type _cacheItemType;
+        SQLiteConnection _db;
 
         public SQLitePersistentBlobCache(string databasePath)
         {
             _databasePath = databasePath;
             _writeSemaphore = new SemaphoreSlim(1, 1);
-
-            var directory = System.IO.Path.GetDirectoryName(_databasePath);
-            if (!System.IO.Directory.Exists(directory))
-                System.IO.Directory.CreateDirectory(directory);
-
-            _db = new SQLiteConnection(_databasePath);
-            _db.ExecuteScalar<string>("PRAGMA journal_mode = WAL");
-            CreateTable();
+            _createSemaphore = new SemaphoreSlim(1, 1);
+            _cacheItemType = typeof(CacheItem);
 
             var serializerSettings = new JsonSerializerSettings
             {
@@ -43,7 +38,31 @@ namespace AkavacheLite
             : this(storageProvider.GetDatabasePath(applicationName, location))
         { }
 
-        void CreateTable()
+        public async Task CreateConnection()
+        {
+            if (_db != null)
+                return;
+            try
+            {
+                await _createSemaphore.WaitAsync();
+                if (_db != null)
+                    return;
+
+                var directory = System.IO.Path.GetDirectoryName(_databasePath);
+                if (!System.IO.Directory.Exists(directory))
+                    System.IO.Directory.CreateDirectory(directory);
+
+                _db = new SQLiteConnection(_databasePath);
+                _db.ExecuteScalar<string>("PRAGMA journal_mode = WAL");
+                EnsureSchema();
+            }
+            finally
+            {
+                _createSemaphore.Release();
+            }
+        }
+
+        void EnsureSchema()
         {
             var tableSQL = @"
                 CREATE TABLE IF NOT EXISTS CacheItem
@@ -58,7 +77,7 @@ namespace AkavacheLite
             ";
             _db.Execute(tableSQL);
         }
-        
+
         public Task<IEnumerable<T>> GetAllObjects<T>()
         {
             var query = @"
@@ -73,7 +92,7 @@ namespace AkavacheLite
                     .Select(p => Deserialize<T>(p.Item));
             });
         }
-        
+
         public async Task<T> GetObject<T>(string key)
         {
             var item = await GetObjectOrDefault<T>(key).ConfigureAwait(false);
@@ -219,7 +238,7 @@ namespace AkavacheLite
             }
             return result;
         }
-        
+
         public async Task InsertObject<T>(string key, T value, DateTimeOffset? absoluteExpiration = null)
         {
             var item = await Task.Run(() =>
@@ -239,7 +258,7 @@ namespace AkavacheLite
                 o.InsertOrReplace(item, _cacheItemType);
             });
         }
-        
+
         public async Task InsertObjects<T>(IDictionary<string, T> keyValuePairs, DateTimeOffset? absoluteExpiration = null)
         {
             var items = await Task.Run(() =>
@@ -410,25 +429,28 @@ namespace AkavacheLite
             _writeSemaphore?.Dispose();
         }
 
-        Task Write(Action<SQLiteConnection> writeOperation)
+        async Task Write(Action<SQLiteConnection> writeOperation)
         {
-            return Task.Run(async () =>
+            try
             {
-                try
-                {
-                    await _writeSemaphore.WaitAsync();  // todo: safe to configure await here?  ¯\_(ツ)_/¯
-                    writeOperation(_db);
-                }
-                finally
-                {
-                    _writeSemaphore.Release();
-                }
-            });
+                await _writeSemaphore.WaitAsync();  // todo: safe to configure await here?  ¯\_(ツ)_/¯
+                if (_db == null)
+                    await CreateConnection();
+                writeOperation(_db);
+            }
+            finally
+            {
+                _writeSemaphore.Release();
+            }
         }
 
-        Task<T> Read<T>(Func<SQLiteConnection, T> readOperation) =>
-            Task.Run(() => readOperation(_db));
-        
+        async Task<T> Read<T>(Func<SQLiteConnection, T> readOperation)
+        {
+            if (_db == null)
+                await CreateConnection();
+            return readOperation(_db);
+        }
+
         T Deserialize<T>(string json)
         {
             using (var reader = new System.IO.StringReader(json))
@@ -466,7 +488,7 @@ namespace AkavacheLite
 
         public byte[] Data { get; set; }
     }
-    
+
     class KeyQueryResult
     {
         public string Key { get; set; }
