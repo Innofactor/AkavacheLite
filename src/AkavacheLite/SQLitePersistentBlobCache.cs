@@ -57,14 +57,6 @@ namespace AkavacheLite
                 ) WITHOUT ROWID;
             ";
             _db.Execute(tableSQL);
-            //var indexSQL = @"
-            //    CREATE INDEX IF NOT EXISTS TimeIDX on CacheItem (Key, Type, Time)
-            //";
-            //_db.RunInTransaction(() =>
-            //{
-            //    _db.Execute(tableSQL);
-            //    _db.Execute(indexSQL);
-            //});
         }
         
         public Task<IEnumerable<T>> GetAllObjects<T>()

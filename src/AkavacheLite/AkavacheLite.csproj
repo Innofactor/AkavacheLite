@@ -10,7 +10,7 @@
     <PackageLicenseUrl>https://github.com/HeathHopkins/AkavacheLite/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/HeathHopkins/AkavacheLite</PackageProjectUrl>
     <RepositoryUrl>https://github.com/HeathHopkins/AkavacheLite</RepositoryUrl>
-    <PackageTags>Akavache, SQLite, Xamarin, object database</PackageTags>
+    <PackageTags>Akavache, SQLite, Xamarin</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
