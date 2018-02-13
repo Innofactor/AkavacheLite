@@ -427,6 +427,7 @@ namespace AkavacheLite
             _db?.Close();
             _db?.Dispose();
             _writeSemaphore?.Dispose();
+            _createSemaphore?.Dispose();
         }
 
         async Task Write(Action<SQLiteConnection> writeOperation)
