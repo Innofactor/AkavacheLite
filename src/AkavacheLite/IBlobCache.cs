@@ -80,6 +80,7 @@ namespace AkavacheLite
          */
 
         //// Attempt to ensure all outstanding operations are written to disk
+        [Obsolete("Flush is not needed in AkavacheLite")]
         Task Flush();
 
         // Preemptively drop all expired keys and run SQLite's VACUUM method on the
