@@ -39,9 +39,13 @@ namespace AkavacheLite
             _serializer = JsonSerializer.Create(serializerSettings);
         }
 
+        public SQLitePersistentBlobCache(IStorageProvider storageProvider, StorageLocation location, string applicationName)
+            : this(storageProvider.GetDatabasePath(applicationName, location))
+        { }
+
         void CreateTable()
         {
-            var sql = @"
+            var tableSQL = @"
                 CREATE TABLE IF NOT EXISTS CacheItem
                 (
                     Key TEXT NOT NULL,
@@ -52,7 +56,15 @@ namespace AkavacheLite
                     PRIMARY KEY (Key, Type)
                 ) WITHOUT ROWID;
             ";
-            _db.Execute(sql);
+            _db.Execute(tableSQL);
+            //var indexSQL = @"
+            //    CREATE INDEX IF NOT EXISTS TimeIDX on CacheItem (Key, Type, Time)
+            //";
+            //_db.RunInTransaction(() =>
+            //{
+            //    _db.Execute(tableSQL);
+            //    _db.Execute(indexSQL);
+            //});
         }
 
         // todo: add to interface
@@ -73,6 +85,38 @@ namespace AkavacheLite
                     });
             });
         }
+
+        public async Task<byte[]> Get(string key)
+        {
+            var item = await GetObject<BinaryItem>(key).ConfigureAwait(false);
+            return item?.Data;
+        }
+
+        public async Task<IDictionary<string, byte[]>> Get(IEnumerable<string> keys)
+        {
+            var items = await GetObjects<BinaryItem>(keys).ConfigureAwait(false);
+            return items.ToDictionary(o => o.Key, o => o.Value?.Data);
+        }
+
+        public Task Insert(string key, byte[] data, DateTimeOffset? absoluteExpiration = null) =>
+            InsertObject<BinaryItem>(key, new BinaryItem (data), absoluteExpiration);
+
+        public Task Insert(IDictionary<string, byte[]> keyValuePairs, DateTimeOffset? absoluteExpiration = null) =>
+            InsertObjects<BinaryItem>(keyValuePairs?.ToDictionary(o => o.Key, o => new BinaryItem(o.Value)) ?? new Dictionary<string, BinaryItem>(), absoluteExpiration);
+
+        public Task Invalidate(string key) =>
+            InvalidateObject<BinaryItem>(key);
+
+        public Task Invalidate(IEnumerable<string> keys) =>
+            InvalidateObjects<BinaryItem>(keys);
+
+        public Task<DateTimeOffset?> GetCreatedAt(string key) =>
+            GetObjectCreatedAt<BinaryItem>(key);
+
+        public Task<IDictionary<string, DateTimeOffset?>> GetCreatedAt(IEnumerable<string> keys) =>
+            GetObjectsCreatedAt<BinaryItem>(keys);
+
+        public Task Flush() => Task.CompletedTask;
 
         public Task<IEnumerable<T>> GetAllObjects<T>()
         {
@@ -106,6 +150,26 @@ namespace AkavacheLite
             return Deserialize<T>(cacheItem.Item);
         }
 
+        public Task<T> GetObjectOrDefault<T>(string key)
+        {
+            var query = @"
+                select * from CacheItem 
+                where 
+                    Type = ? 
+                    and Key = ? 
+                    and (Time is null or Time >= ?)
+                limit 1
+            ";
+
+            return Read(o =>
+            {
+                var cacheItem = o.Query<CacheItem>(query, typeof(T).FullName, key, DateTime.UtcNow.Ticks).FirstOrDefault();
+                if (cacheItem == null)
+                    return default(T);
+                return Deserialize<T>(cacheItem.Item);
+            });
+        }
+
         public Task<DateTimeOffset?> GetObjectCreatedAt<T>(string key)
         {
             var query = @"
@@ -124,6 +188,53 @@ namespace AkavacheLite
                     return default(DateTimeOffset?);
                 return new DateTimeOffset(result.UtcTicks, TimeSpan.Zero);
             });
+        }
+
+        public async Task<IDictionary<string, DateTimeOffset?>> GetObjectsCreatedAt<T>(IEnumerable<string> keys)
+        {
+            keys = keys.Distinct();
+
+            var utcTicks = DateTime.UtcNow.Ticks;
+            var typeName = typeof(T).FullName;
+
+            var tasks = keys
+                .Chunk()
+                .Select(chunk =>
+                {
+                    return Read(o =>
+                    {
+                        var chunkKeys = chunk.ToArray();
+                        var keyParameters = string.Join(", ", Enumerable.Repeat("?", chunkKeys.Length));
+                        var sql = $@"
+                            select Key, CreatedAt as UtcTicks from CacheItem 
+                            where 
+                                (Time is null or Time >= ?)
+                                and Type = ?
+                                and Key in ({keyParameters})
+                        ";
+
+                        var args = new object[2 + chunkKeys.Length];
+                        args[0] = utcTicks;
+                        args[1] = typeName;
+                        chunkKeys.CopyTo(args, 2);
+                        return o.Query<DateQueryResult>(sql, args);
+                    });
+                });
+
+            await Task.WhenAll(tasks).ConfigureAwait(false);
+            var foundKeys = tasks
+                .SelectMany(o => o.Result)
+                .ToDictionary(o => o.Key, o => new DateTimeOffset(o.UtcTicks, TimeSpan.Zero));
+
+            var result = new Dictionary<string, DateTimeOffset?>();
+            foreach (var key in keys)
+            {
+                if (foundKeys.TryGetValue(key, out var dateTimeOffset))
+                    result.Add(key, dateTimeOffset);
+                else
+                    result.Add(key, null);
+            }
+            return result;
         }
 
         public async Task<IDictionary<string, T>> GetObjects<T>(IEnumerable<string> keys)
@@ -170,8 +281,6 @@ namespace AkavacheLite
         
         public async Task InsertObject<T>(string key, T value, DateTimeOffset? absoluteExpiration = null)
         {
-            // todo: validate inputs
-
             var item = await Task.Run(() =>
             {
                 return new CacheItem
@@ -353,6 +462,17 @@ namespace AkavacheLite
         public long CreatedAt { get; set; }
         public long? Time { get; set; }
         public string Item { get; set; }
+    }
+
+    class BinaryItem
+    {
+        public BinaryItem() { }
+        public BinaryItem(byte[] data)
+        {
+            Data = data;
+        }
+
+        public byte[] Data { get; set; }
     }
     
     class KeyQueryResult

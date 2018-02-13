@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkavacheLite", "AkavacheLite\AkavacheLite.csproj", "{8FB2A4FC-A0B7-4FBC-BA14-F778B4ABD08E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AkavacheLite", "AkavacheLite\AkavacheLite.csproj", "{8FB2A4FC-A0B7-4FBC-BA14-F778B4ABD08E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkavacheLiteApp", "AkavacheLiteApp\AkavacheLiteApp.csproj", "{788F66BE-1361-4891-93BE-923780CE5EEA}"
 EndProject

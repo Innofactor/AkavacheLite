@@ -6,11 +6,11 @@ namespace AkavacheLite
 {
     public interface IBlobCache : IDisposable
     {
-        //// Get a single item
-        //Task<byte[]> Get(string key);
+        // Get a single item
+        Task<byte[]> Get(string key);
 
-        //// Get a list of items
-        //Task<IDictionary<string, byte[]>> Get(IEnumerable<string> keys);
+        // Get a list of items
+        Task<IDictionary<string, byte[]>> Get(IEnumerable<string> keys);
 
         // Get an object serialized via InsertObject
         Task<T> GetObject<T>(string key);
@@ -25,11 +25,11 @@ namespace AkavacheLite
          * Save items to the store
          */
 
-        //// Insert a single item
-        //Task Insert(string key, byte[] data, DateTimeOffset? absoluteExpiration = null);
+        // Insert a single item
+        Task Insert(string key, byte[] data, DateTimeOffset? absoluteExpiration = null);
 
-        //// Insert a set of items
-        //Task Insert(IDictionary<string, byte[]> keyValuePairs, DateTimeOffset? absoluteExpiration = null);
+        // Insert a set of items
+        Task Insert(IDictionary<string, byte[]> keyValuePairs, DateTimeOffset? absoluteExpiration = null);
 
         // Insert a single object
         Task InsertObject<T>(string key, T value, DateTimeOffset? absoluteExpiration = null);
@@ -41,11 +41,11 @@ namespace AkavacheLite
          * Remove items from the store
          */
 
-        //// Delete a single item
-        //Task Invalidate(string key);
+        // Delete a single item
+        Task Invalidate(string key);
 
-        //// Delete a list of items
-        //Task Invalidate(IEnumerable<string> keys);
+        // Delete a list of items
+        Task Invalidate(IEnumerable<string> keys);
 
         // Delete a single object (do *not* use Invalidate for items inserted with InsertObject!)
         Task InvalidateObject<T>(string key);
@@ -66,21 +66,21 @@ namespace AkavacheLite
         //// Return a list of all keys. Use for debugging purposes only.
         //Task<IEnumerable<string>> GetAllKeys();
 
-        //// Return the time which an item was created
-        //Task<DateTimeOffset?> GetCreatedAt(string key);
+        // Return the time which an item was created
+        Task<DateTimeOffset?> GetCreatedAt(string key);
 
         // Return the time which an object of type T was created
         Task<DateTimeOffset?> GetObjectCreatedAt<T>(string key);
 
-        //// Return the time which a list of keys were created
-        //Task<IDictionary<string, DateTimeOffset?>> GetCreatedAt(IEnumerable<string> keys);
+        // Return the time which a list of keys were created
+        Task<IDictionary<string, DateTimeOffset?>> GetCreatedAt(IEnumerable<string> keys);
 
         /*
          * Utility methods
          */
 
         //// Attempt to ensure all outstanding operations are written to disk
-        //Task Flush();
+        Task Flush();
 
         // Preemptively drop all expired keys and run SQLite's VACUUM method on the
         // underlying database
