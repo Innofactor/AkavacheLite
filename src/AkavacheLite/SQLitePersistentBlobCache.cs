@@ -66,58 +66,7 @@ namespace AkavacheLite
             //    _db.Execute(indexSQL);
             //});
         }
-
-        // todo: add to interface
-        public Task<IEnumerable<KeyResult>> GetAllKeys()
-        {
-            var query = @"
-                select Key, Type from CacheItem 
-                where 
-                    (Time is null or Time >= ?)
-            ";
-            return Read(o =>
-            {
-                return o.Query<KeyQueryResult>(query, DateTime.UtcNow.Ticks)
-                    .Select(p => new KeyResult
-                    {
-                        Key = p.Key,
-                        Type = Type.GetType(p.Type)  // todo: test this
-                    });
-            });
-        }
-
-        public async Task<byte[]> Get(string key)
-        {
-            var item = await GetObject<BinaryItem>(key).ConfigureAwait(false);
-            return item?.Data;
-        }
-
-        public async Task<IDictionary<string, byte[]>> Get(IEnumerable<string> keys)
-        {
-            var items = await GetObjects<BinaryItem>(keys).ConfigureAwait(false);
-            return items.ToDictionary(o => o.Key, o => o.Value?.Data);
-        }
-
-        public Task Insert(string key, byte[] data, DateTimeOffset? absoluteExpiration = null) =>
-            InsertObject<BinaryItem>(key, new BinaryItem (data), absoluteExpiration);
-
-        public Task Insert(IDictionary<string, byte[]> keyValuePairs, DateTimeOffset? absoluteExpiration = null) =>
-            InsertObjects<BinaryItem>(keyValuePairs?.ToDictionary(o => o.Key, o => new BinaryItem(o.Value)) ?? new Dictionary<string, BinaryItem>(), absoluteExpiration);
-
-        public Task Invalidate(string key) =>
-            InvalidateObject<BinaryItem>(key);
-
-        public Task Invalidate(IEnumerable<string> keys) =>
-            InvalidateObjects<BinaryItem>(keys);
-
-        public Task<DateTimeOffset?> GetCreatedAt(string key) =>
-            GetObjectCreatedAt<BinaryItem>(key);
-
-        public Task<IDictionary<string, DateTimeOffset?>> GetCreatedAt(IEnumerable<string> keys) =>
-            GetObjectsCreatedAt<BinaryItem>(keys);
-
-        public Task Flush() => Task.CompletedTask;
-
+        
         public Task<IEnumerable<T>> GetAllObjects<T>()
         {
             var query = @"
@@ -135,19 +84,10 @@ namespace AkavacheLite
         
         public async Task<T> GetObject<T>(string key)
         {
-            var query = @"
-                select * from CacheItem 
-                where 
-                    Type = ? 
-                    and Key = ? 
-                    and (Time is null or Time >= ?)
-                limit 1
-            ";
-
-            var cacheItem = await Read(o => o.Query<CacheItem>(query, typeof(T).FullName, key, DateTime.UtcNow.Ticks).FirstOrDefault()).ConfigureAwait(false);
-            if (cacheItem == null)
+            var item = await GetObjectOrDefault<T>(key).ConfigureAwait(false);
+            if (item == null)
                 throw new KeyNotFoundException(key);
-            return Deserialize<T>(cacheItem.Item);
+            return item;
         }
 
         public Task<T> GetObjectOrDefault<T>(string key)
@@ -239,12 +179,12 @@ namespace AkavacheLite
 
         public async Task<IDictionary<string, T>> GetObjects<T>(IEnumerable<string> keys)
         {
-            keys = keys.Distinct();
+            var distinctKeys = keys.Distinct().ToArray();
 
             var utcTicks = DateTime.UtcNow.Ticks;
             var typeName = typeof(T).FullName;
 
-            var tasks = keys
+            var tasks = distinctKeys
                 .Chunk()
                 .Select(chunk =>
                 {
@@ -273,10 +213,19 @@ namespace AkavacheLite
                     });
                 });
             await Task.WhenAll(tasks).ConfigureAwait(false);
-            
-            return tasks
-                .SelectMany(o => o.Result)
-                .ToDictionary(o => o.Key, o => o.Object);
+
+            var defaultT = default(T);
+            var result = new Dictionary<string, T>(distinctKeys.ToDictionary(o => o, o => defaultT));
+
+            var chunks = tasks.Select(o => o.Result).ToArray();
+            foreach (var chunk in chunks)
+            {
+                foreach (var item in chunk)
+                {
+                    result[item.Key] = item.Object;
+                }
+            }
+            return result;
         }
         
         public async Task InsertObject<T>(string key, T value, DateTimeOffset? absoluteExpiration = null)
@@ -410,6 +359,57 @@ namespace AkavacheLite
                 o.Execute("VACUUM;");
             });
         }
+
+        // todo: add to interface
+        public Task<IEnumerable<KeyResult>> GetAllKeys()
+        {
+            var query = @"
+                select Key, Type from CacheItem 
+                where 
+                    (Time is null or Time >= ?)
+            ";
+            return Read(o =>
+            {
+                return o.Query<KeyQueryResult>(query, DateTime.UtcNow.Ticks)
+                    .Select(p => new KeyResult
+                    {
+                        Key = p.Key,
+                        Type = Type.GetType(p.Type)  // todo: test this
+                    });
+            });
+        }
+
+        public async Task<byte[]> Get(string key)
+        {
+            var item = await GetObject<BinaryItem>(key).ConfigureAwait(false);
+            return item?.Data;
+        }
+
+        public async Task<IDictionary<string, byte[]>> Get(IEnumerable<string> keys)
+        {
+            var items = await GetObjects<BinaryItem>(keys).ConfigureAwait(false);
+            return items.ToDictionary(o => o.Key, o => o.Value?.Data);
+        }
+
+        public Task Insert(string key, byte[] data, DateTimeOffset? absoluteExpiration = null) =>
+            InsertObject<BinaryItem>(key, new BinaryItem(data), absoluteExpiration);
+
+        public Task Insert(IDictionary<string, byte[]> keyValuePairs, DateTimeOffset? absoluteExpiration = null) =>
+            InsertObjects<BinaryItem>(keyValuePairs?.ToDictionary(o => o.Key, o => new BinaryItem(o.Value)) ?? new Dictionary<string, BinaryItem>(), absoluteExpiration);
+
+        public Task Invalidate(string key) =>
+            InvalidateObject<BinaryItem>(key);
+
+        public Task Invalidate(IEnumerable<string> keys) =>
+            InvalidateObjects<BinaryItem>(keys);
+
+        public Task<DateTimeOffset?> GetCreatedAt(string key) =>
+            GetObjectCreatedAt<BinaryItem>(key);
+
+        public Task<IDictionary<string, DateTimeOffset?>> GetCreatedAt(IEnumerable<string> keys) =>
+            GetObjectsCreatedAt<BinaryItem>(keys);
+
+        public Task Flush() => Task.CompletedTask;
 
         public void Dispose()
         {

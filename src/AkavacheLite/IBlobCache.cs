@@ -15,6 +15,9 @@ namespace AkavacheLite
         // Get an object serialized via InsertObject
         Task<T> GetObject<T>(string key);
 
+        // Get an object serialized via InsertObject
+        Task<T> GetObjectOrDefault<T>(string key);
+
         // Get all objects of type T
         Task<IEnumerable<T>> GetAllObjects<T>();
 
