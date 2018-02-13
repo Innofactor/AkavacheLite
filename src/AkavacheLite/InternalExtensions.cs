@@ -13,9 +13,9 @@ namespace AkavacheLite
         public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> items, int size)
         {
             return items
-                .Select((x, i) => new { Index = i, Value = x })
-                .GroupBy(x => x.Index / size)
-                .Select(x => x.Select(v => v.Value));
+                .Select((o, i) => new { Index = i, Value = o })
+                .GroupBy(o => o.Index / size)
+                .Select(o => o.Select(p => p.Value));
         }
 
         public static string GetDatabasePath(this IStorageProvider storageProvider, string applicationName, StorageLocation location)
