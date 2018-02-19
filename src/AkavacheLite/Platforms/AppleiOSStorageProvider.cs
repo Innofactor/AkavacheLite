@@ -3,11 +3,11 @@ using System.IO;
 
 namespace AkavacheLite.Platforms
 {
-    public class XamariniOSStorageProvider : IStorageProvider
+    public class AppleiOSStorageProvider : IStorageProvider
     {
         readonly string _baseFolder;
 
-        public XamariniOSStorageProvider()
+        public AppleiOSStorageProvider()
         {
             _baseFolder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
         }
