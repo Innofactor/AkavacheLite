@@ -7,8 +7,8 @@
     <ProjectGuid>{E7314541-3D26-4C7B-AA5A-50C8E5635A25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Akvache.Dynamics</RootNamespace>
-    <AssemblyName>Akvache.Dynamics</AssemblyName>
+    <RootNamespace>Akavache.Collections</RootNamespace>
+    <AssemblyName>Akavache.Collections</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

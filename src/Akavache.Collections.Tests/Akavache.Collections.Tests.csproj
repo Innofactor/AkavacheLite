@@ -9,8 +9,8 @@
     <ProjectGuid>{9A55B207-FF9A-479B-9A63-1B03531A5AA3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Akvache.Dynamics.Tests</RootNamespace>
-    <AssemblyName>Akvache.Dynamics.Tests</AssemblyName>
+    <RootNamespace>Akavache.Collections.Tests</RootNamespace>
+    <AssemblyName>Akavache.Collections.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -89,7 +89,7 @@
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Akvache.Dynamics\Akavache.Collections.csproj">
+    <ProjectReference Include="..\Akavache.Collections\Akavache.Collections.csproj">
       <Project>{e7314541-3d26-4c7b-aa5a-50c8e5635a25}</Project>
       <Name>Akavache.Collections</Name>
     </ProjectReference>
