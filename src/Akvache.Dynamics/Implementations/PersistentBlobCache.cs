@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -301,10 +302,10 @@
         }
 
         public Task Insert(string key, byte[] data, DateTimeOffset? absoluteExpiration = null) =>
-            InsertObject<BinaryItem>(key, new BinaryItem(data), absoluteExpiration);
+            InsertObject(key, new BinaryItem(data), absoluteExpiration);
 
         public Task Insert(IDictionary<string, byte[]> keyValuePairs, DateTimeOffset? absoluteExpiration = null) =>
-            InsertObjects<BinaryItem>(keyValuePairs?.ToDictionary(o => o.Key, o => new BinaryItem(o.Value)) ?? new Dictionary<string, BinaryItem>(), absoluteExpiration);
+            InsertObjects(keyValuePairs?.ToDictionary(o => o.Key, o => new BinaryItem(o.Value)) ?? new Dictionary<string, BinaryItem>(), absoluteExpiration);
 
         public async Task InsertObject<T>(string key, T value, DateTimeOffset? absoluteExpiration = null)
         {
@@ -450,10 +451,12 @@
 
         private T Deserialize<T>(string json)
         {
-            using (var reader = new System.IO.StringReader(json))
-            using (var jsonReader = new JsonTextReader(reader))
+            using (var reader = new StringReader(json))
             {
-                return _serializer.Deserialize<T>(jsonReader);
+                using (var jsonReader = new JsonTextReader(reader))
+                {
+                    return _serializer.Deserialize<T>(jsonReader);
+                }
             }
         }
 
@@ -485,11 +488,13 @@
 
         private string Serialize(object obj)
         {
-            using (var sw = new System.IO.StringWriter())
-            using (var jsonWriter = new JsonTextWriter(sw))
+            using (var sw = new StringWriter())
             {
-                _serializer.Serialize(jsonWriter, obj);
-                return sw.ToString();
+                using (var jsonWriter = new JsonTextWriter(sw))
+                {
+                    _serializer.Serialize(jsonWriter, obj);
+                    return sw.ToString();
+                }
             }
         }
 

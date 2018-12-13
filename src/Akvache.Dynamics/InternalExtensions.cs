@@ -15,7 +15,7 @@
         #region Public Methods
 
         public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> items) =>
-            Chunk<T>(items, ChunkSize);
+            Chunk(items, ChunkSize);
 
         public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> items, int size)
         {
