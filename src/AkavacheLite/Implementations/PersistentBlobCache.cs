@@ -10,7 +10,7 @@
     using Newtonsoft.Json;
     using SQLite;
 
-    public class SQLitePersistentBlobCache : IBlobCache
+    public class PersistentBlobCache : IBlobCache
     {
         #region Private Fields
 
@@ -25,7 +25,7 @@
 
         #region Public Constructors
 
-        public SQLitePersistentBlobCache(string databasePath)
+        public PersistentBlobCache(string databasePath)
         {
             _databasePath = databasePath;
             _writeSemaphore = new SemaphoreSlim(1, 1);
@@ -42,7 +42,7 @@
             _serializer = JsonSerializer.Create(serializerSettings);
         }
 
-        public SQLitePersistentBlobCache(IStorageProvider storageProvider, StorageLocation location, string applicationName)
+        public PersistentBlobCache(IStorageProvider storageProvider, StorageLocation location, string applicationName)
             : this(storageProvider.GetDatabasePath(applicationName, location))
         { }
 

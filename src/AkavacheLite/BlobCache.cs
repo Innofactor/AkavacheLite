@@ -30,9 +30,9 @@
         static BlobCache()
         {
             _localMachine = new Lazy<IBlobCache>(() =>
-                new SQLitePersistentBlobCache(GetDatabasePath(ApplicationName, StorageLocation.Temporary)));
+                new PersistentBlobCache(GetDatabasePath(ApplicationName, StorageLocation.Temporary)));
             _userAccount = new Lazy<IBlobCache>(() =>
-                new SQLitePersistentBlobCache(GetDatabasePath(ApplicationName, StorageLocation.User)));
+                new PersistentBlobCache(GetDatabasePath(ApplicationName, StorageLocation.User)));
             //_secure = new Lazy<ISecureBlobCache>(() =>
             //    new SQLitePersistentBlobCache(GetDatabasePath(ApplicationName, StorageLocation.Secure)));
         }
