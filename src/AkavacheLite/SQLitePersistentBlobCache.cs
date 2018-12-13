@@ -5,18 +5,9 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Akvache.Dynamics.Structure;
     using Newtonsoft.Json;
     using SQLite;
-
-    public class KeyResult
-    {
-        #region Public Properties
-
-        public string Key { get; set; }
-        public Type Type { get; set; }
-
-        #endregion Public Properties
-    }
 
     public class SQLitePersistentBlobCache : IBlobCache
     {
@@ -96,8 +87,6 @@
             _writeSemaphore?.Dispose();
             _createSemaphore?.Dispose();
         }
-
-        public Task Flush() => Task.CompletedTask;
 
         public async Task<byte[]> Get(string key)
         {
@@ -522,70 +511,5 @@
         }
 
         #endregion Private Methods
-    }
-
-    internal class BinaryItem
-    {
-        #region Public Constructors
-
-        public BinaryItem()
-        {
-        }
-
-        public BinaryItem(byte[] data)
-        {
-            Data = data;
-        }
-
-        #endregion Public Constructors
-
-        #region Public Properties
-
-        public byte[] Data { get; set; }
-
-        #endregion Public Properties
-    }
-
-    internal class CacheItem
-    {
-        #region Public Properties
-
-        public long CreatedAt { get; set; }
-        public string Item { get; set; }
-        public string Key { get; set; }
-        public long? Time { get; set; }
-        public string Type { get; set; }
-
-        #endregion Public Properties
-    }
-
-    internal class DateQueryResult
-    {
-        #region Public Properties
-
-        public string Key { get; set; }
-        public long UtcTicks { get; set; }
-
-        #endregion Public Properties
-    }
-
-    internal class GetObjectResult<T>
-    {
-        #region Public Properties
-
-        public string Key { get; set; }
-        public T Object { get; set; }
-
-        #endregion Public Properties
-    }
-
-    internal class KeyQueryResult
-    {
-        #region Public Properties
-
-        public string Key { get; set; }
-        public string Type { get; set; }
-
-        #endregion Public Properties
     }
 }

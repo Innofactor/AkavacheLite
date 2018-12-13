@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace AkavacheLite.Dynamics
+﻿namespace AkavacheLite.Dynamics
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     public interface IBlobCache : IDisposable
     {
         #region Public Methods
-
-        //// Attempt to ensure all outstanding operations are written to disk
-        [Obsolete("Flush is not needed in AkavacheLite")]
-        Task Flush();
 
         // Get a single item
         Task<byte[]> Get(string key);
