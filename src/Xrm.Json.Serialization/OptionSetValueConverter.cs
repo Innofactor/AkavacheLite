@@ -1,4 +1,4 @@
-﻿namespace Akavache.Collections.Implementations.Converters
+﻿namespace Xrm.Json.Serialization
 {
     using System;
     using Microsoft.Xrm.Sdk;

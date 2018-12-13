@@ -78,7 +78,7 @@
         /// user account or shouldn't be uploaded to other machines (i.e.
         /// image cache data)
         /// </summary>
-        public static IBlobCache LocalMachine => 
+        public static IBlobCache LocalMachine =>
             _localMachine.Value;
 
         public static IStorageProvider StorageProvider
@@ -92,7 +92,7 @@
         /// the user; in large organizations, this data will be synced to all
         /// machines via NT Roaming Profiles.
         /// </summary>
-        public static IBlobCache UserAccount => 
+        public static IBlobCache UserAccount =>
             _userAccount.Value;
 
         #endregion Public Properties
@@ -105,10 +105,9 @@
 
         #region Public Methods
 
-        public static string GetDatabasePath(string applicationName, StorageLocation location) => 
+        public static string GetDatabasePath(string applicationName, StorageLocation location) =>
             StorageProvider.GetDatabasePath(applicationName, location);
 
         #endregion Public Methods
-
     }
 }

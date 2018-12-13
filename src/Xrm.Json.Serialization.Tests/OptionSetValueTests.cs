@@ -1,6 +1,5 @@
-﻿namespace Akavache.Collections.Tests.Converters
+﻿namespace Xrm.Json.Serialization.Tests
 {
-    using Akavache.Collections.Implementations.Converters;
     using Microsoft.Xrm.Sdk;
     using Newtonsoft.Json;
     using Xunit;

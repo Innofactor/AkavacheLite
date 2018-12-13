@@ -3,7 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using Akavache.Collections.Implementations;
 
     public class PersistentDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
@@ -53,7 +52,7 @@
 
         #region Public Methods
 
-        public void Add(TKey key, TValue value) => 
+        public void Add(TKey key, TValue value) =>
             cache.InsertObject(key.ToString(), value).Wait();
 
         public void Add(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
