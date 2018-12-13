@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace AkavacheLite.Dynamics
+﻿namespace AkavacheLite.Dynamics
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using AkavacheLite.Dynamics.Interfaces;
+
     internal static class InternalExtensions
     {
         #region Private Fields

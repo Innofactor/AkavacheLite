@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace AkavacheLite.Dynamics
+﻿namespace AkavacheLite.Dynamics
 {
+    using System;
+    using AkavacheLite.Dynamics.Interfaces;
+
     public static class Extensions
     {
         #region Public Methods

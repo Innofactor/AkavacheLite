@@ -1,4 +1,4 @@
-﻿namespace AkavacheLite.Dynamics
+﻿namespace AkavacheLite.Dynamics.Interfaces
 {
     using System;
     using System.Collections.Generic;

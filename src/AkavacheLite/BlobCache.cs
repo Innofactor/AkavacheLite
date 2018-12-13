@@ -1,8 +1,10 @@
-﻿using System;
-using System.Linq;
-
-namespace AkavacheLite.Dynamics
+﻿namespace AkavacheLite.Dynamics
 {
+    using System;
+    using System.Linq;
+    using AkavacheLite.Dynamics.Implementations;
+    using AkavacheLite.Dynamics.Interfaces;
+
     // based on the excelent work of Akavache
     public static class BlobCache
     {
@@ -76,7 +78,8 @@ namespace AkavacheLite.Dynamics
         /// user account or shouldn't be uploaded to other machines (i.e.
         /// image cache data)
         /// </summary>
-        public static IBlobCache LocalMachine => _localMachine.Value;
+        public static IBlobCache LocalMachine => 
+            _localMachine.Value;
 
         public static IStorageProvider StorageProvider
         {
@@ -89,7 +92,8 @@ namespace AkavacheLite.Dynamics
         /// the user; in large organizations, this data will be synced to all
         /// machines via NT Roaming Profiles.
         /// </summary>
-        public static IBlobCache UserAccount => _userAccount.Value;
+        public static IBlobCache UserAccount => 
+            _userAccount.Value;
 
         #endregion Public Properties
 
@@ -101,11 +105,8 @@ namespace AkavacheLite.Dynamics
 
         #region Public Methods
 
-        public static string GetDatabasePath(string applicationName, StorageLocation location)
-        {
-            var storageProvider = StorageProvider;
-            return storageProvider.GetDatabasePath(applicationName, location);
-        }
+        public static string GetDatabasePath(string applicationName, StorageLocation location) => 
+            StorageProvider.GetDatabasePath(applicationName, location);
 
         #endregion Public Methods
 

@@ -1,7 +1,8 @@
-﻿using System;
-
-namespace AkavacheLite.Dynamics.Platforms
+﻿namespace AkavacheLite.Dynamics.Implementations.Platforms
 {
+    using System;
+    using AkavacheLite.Dynamics.Interfaces;
+
     public class WindowsStorageProvider : IStorageProvider
     {
         #region Private Fields

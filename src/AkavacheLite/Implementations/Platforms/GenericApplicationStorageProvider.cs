@@ -1,8 +1,9 @@
-﻿using System;
-using System.IO;
-
-namespace AkavacheLite.Dynamics.Platforms
+﻿namespace AkavacheLite.Dynamics.Implementations.Platforms
 {
+    using System;
+    using System.IO;
+    using AkavacheLite.Dynamics.Interfaces;
+
     public class GenericApplicationStorageProvider : IStorageProvider
     {
         #region Public Constructors
