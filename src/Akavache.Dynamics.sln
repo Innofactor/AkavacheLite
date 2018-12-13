@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akvache.Dynamics", "Akvache.Dynamics\Akvache.Dynamics.csproj", "{E7314541-3D26-4C7B-AA5A-50C8E5635A25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akavache.Collections", "Akavache.Collections\Akavache.Collections.csproj", "{E7314541-3D26-4C7B-AA5A-50C8E5635A25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akvache.Dynamics.Tests", "Akvache.Dynamics.Tests\Akvache.Dynamics.Tests.csproj", "{9A55B207-FF9A-479B-9A63-1B03531A5AA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akavache.Collections.Tests", "Akavache.Collections.Tests\Akavache.Collections.Tests.csproj", "{9A55B207-FF9A-479B-9A63-1B03531A5AA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
