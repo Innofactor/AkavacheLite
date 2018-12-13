@@ -1,4 +1,4 @@
-﻿namespace AkavacheLite.Dynamics.Implementations
+﻿namespace Akavache.Dynamics.Implementations
 {
     using System;
     using System.Collections.Generic;
@@ -6,7 +6,7 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using AkavacheLite.Dynamics.Interfaces;
+    using Akavache.Dynamics.Interfaces;
     using Akvache.Dynamics.Structure;
     using Newtonsoft.Json;
     using SQLite;
