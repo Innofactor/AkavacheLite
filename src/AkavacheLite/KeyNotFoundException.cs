@@ -4,6 +4,8 @@ namespace AkavacheLite
 {
     public class KeyNotFoundException : Exception
     {
+        #region Public Constructors
+
         public KeyNotFoundException()
             : base()
         { }
@@ -12,7 +14,13 @@ namespace AkavacheLite
             : base(GetKeyMessage(key))
         { }
 
-        static string GetKeyMessage(string key) =>
+        #endregion Public Constructors
+
+        #region Private Methods
+
+        private static string GetKeyMessage(string key) =>
             $"The key `{key}` was not found or has already expired.";
+
+        #endregion Private Methods
     }
 }

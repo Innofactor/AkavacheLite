@@ -1,24 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AkavacheLite
 {
     // based on the excelent work of Akavache
     public static class BlobCache
     {
-        static string _applicationName;
-        static IStorageProvider _storageProvider;
+        #region Private Fields
 
-        static Lazy<IBlobCache> _localMachine;
-        static Lazy<IBlobCache> _userAccount;
+        private static string _applicationName;
+        private static Lazy<IBlobCache> _localMachine;
+        private static IStorageProvider _storageProvider;
+        private static Lazy<IBlobCache> _userAccount;
         //static Lazy<ISecureBlobCache> _secure;
+
+        private static IBlobCache localMachine;
+
+        //static ISecureBlobCache secure;
+        private static bool shutdownRequested;
+
+        private static IBlobCache userAccount;
+
+        #endregion Private Fields
+
+        #region Public Constructors
 
         static BlobCache()
         {
-            _localMachine = new Lazy<IBlobCache>(() => 
+            _localMachine = new Lazy<IBlobCache>(() =>
                 new SQLitePersistentBlobCache(GetDatabasePath(ApplicationName, StorageLocation.Temporary)));
             _userAccount = new Lazy<IBlobCache>(() =>
                 new SQLitePersistentBlobCache(GetDatabasePath(ApplicationName, StorageLocation.User)));
@@ -26,6 +35,9 @@ namespace AkavacheLite
             //    new SQLitePersistentBlobCache(GetDatabasePath(ApplicationName, StorageLocation.Secure)));
         }
 
+        #endregion Public Constructors
+
+        #region Public Properties
 
         /// <summary>
         /// Your application's name. Set this at startup, this defines where
@@ -36,7 +48,10 @@ namespace AkavacheLite
             get
             {
                 if (string.IsNullOrWhiteSpace(_applicationName))
+                {
                     throw new Exception($"You must set {nameof(BlobCache)}.{nameof(ApplicationName)} on startup.");
+                }
+
                 return _applicationName;
             }
             set
@@ -48,21 +63,13 @@ namespace AkavacheLite
                 }
                 var invalidChars = System.IO.Path.GetInvalidFileNameChars();
                 if (value.Any(o => invalidChars.Contains(o)))
+                {
                     throw new Exception($"{nameof(BlobCache)}.{nameof(ApplicationName)} cannot have any of these characters: " + string.Join(" ", invalidChars));
+                }
+
                 _applicationName = value;
             }
         }
-
-        public static IStorageProvider StorageProvider
-        {
-            get => _storageProvider ?? throw new Exception($"You must set {nameof(BlobCache)}.{nameof(StorageProvider)} on startup.");
-            set => _storageProvider = value;
-        }
-
-        static IBlobCache localMachine;
-        static IBlobCache userAccount;
-        //static ISecureBlobCache secure;
-        static bool shutdownRequested;
 
         /// <summary>
         /// The local machine cache. Store data here that is unrelated to the
@@ -71,6 +78,12 @@ namespace AkavacheLite
         /// </summary>
         public static IBlobCache LocalMachine => _localMachine.Value;
 
+        public static IStorageProvider StorageProvider
+        {
+            get => _storageProvider ?? throw new Exception($"You must set {nameof(BlobCache)}.{nameof(StorageProvider)} on startup.");
+            set => _storageProvider = value;
+        }
+
         /// <summary>
         /// The user account cache. Store data here that is associated with
         /// the user; in large organizations, this data will be synced to all
@@ -78,16 +91,23 @@ namespace AkavacheLite
         /// </summary>
         public static IBlobCache UserAccount => _userAccount.Value;
 
+        #endregion Public Properties
+
         ///// <summary>
         ///// An IBlobCache that is encrypted - store sensitive data in this
         ///// cache such as login information.
         ///// </summary>
         //public static ISecureBlobCache Secure => _secure.Value;
-        
+
+        #region Public Methods
+
         public static string GetDatabasePath(string applicationName, StorageLocation location)
         {
             var storageProvider = StorageProvider;
             return storageProvider.GetDatabasePath(applicationName, location);
-        }   
+        }
+
+        #endregion Public Methods
+
     }
 }

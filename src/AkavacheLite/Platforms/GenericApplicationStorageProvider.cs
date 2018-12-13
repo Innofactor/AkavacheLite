@@ -5,9 +5,15 @@ namespace AkavacheLite.Platforms
 {
     public class GenericApplicationStorageProvider : IStorageProvider
     {
+        #region Public Constructors
+
         public GenericApplicationStorageProvider()
         {
         }
+
+        #endregion Public Constructors
+
+        #region Public Methods
 
         public string GetPersistentCacheDirectory() =>
             Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -17,5 +23,7 @@ namespace AkavacheLite.Platforms
 
         public string GetTemporaryCacheDirectory() =>
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+        #endregion Public Methods
     }
 }

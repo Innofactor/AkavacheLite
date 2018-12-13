@@ -5,7 +5,13 @@ namespace AkavacheLite
 {
     internal static class InternalExtensions
     {
-        const int ChunkSize = 950;
+        #region Private Fields
+
+        private const int ChunkSize = 950;
+
+        #endregion Private Fields
+
+        #region Public Methods
 
         public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> items) =>
             Chunk<T>(items, ChunkSize);
@@ -26,9 +32,11 @@ namespace AkavacheLite
                 case StorageLocation.User:
                     basePath = storageProvider.GetPersistentCacheDirectory();
                     break;
+
                 case StorageLocation.Secure:
                     basePath = storageProvider.GetSecretCacheDirectory();
                     break;
+
                 case StorageLocation.Temporary:
                 default:
                     basePath = storageProvider.GetTemporaryCacheDirectory();
@@ -36,6 +44,8 @@ namespace AkavacheLite
             }
             return System.IO.Path.Combine(basePath, $"{applicationName}.db");
         }
+
+        #endregion Public Methods
 
         //public static IEnumerable<List<T>> Chunk2<T>(List<T> items, int size)
         //{

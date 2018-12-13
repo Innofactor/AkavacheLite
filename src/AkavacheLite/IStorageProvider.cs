@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AkavacheLite
+﻿namespace AkavacheLite
 {
     public interface IStorageProvider
     {
@@ -21,11 +16,7 @@ namespace AkavacheLite
         ///// <param name="path">The path to the file</param>
         //Task Delete(string path);
 
-        /// <summary>
-        /// Gets the default local machine cache directory (i.e. the one for temporary data)
-        /// </summary>
-        /// <returns>The default local machine cache directory.</returns>
-        string GetTemporaryCacheDirectory();
+        #region Public Methods
 
         /// <summary>
         /// Gets the default roaming cache directory (i.e. the one for user settings)
@@ -38,5 +29,13 @@ namespace AkavacheLite
         /// </summary>
         /// <returns>The default roaming cache directory.</returns>
         string GetSecretCacheDirectory();
+
+        /// <summary>
+        /// Gets the default local machine cache directory (i.e. the one for temporary data)
+        /// </summary>
+        /// <returns>The default local machine cache directory.</returns>
+        string GetTemporaryCacheDirectory();
+
+        #endregion Public Methods
     }
 }
