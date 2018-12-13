@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace AkavacheLite.Platforms
+namespace AkavacheLite.Dynamics.Platforms
 {
     public class AppleiOSStorageProvider : IStorageProvider
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AkavacheLite
+namespace AkavacheLite.Dynamics
 {
     public static class Extensions
     {

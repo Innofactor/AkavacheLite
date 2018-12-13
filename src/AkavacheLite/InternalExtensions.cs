@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace AkavacheLite
+namespace AkavacheLite.Dynamics
 {
     internal static class InternalExtensions
     {

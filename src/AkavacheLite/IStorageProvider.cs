@@ -1,4 +1,4 @@
-﻿namespace AkavacheLite
+﻿namespace AkavacheLite.Dynamics
 {
     public interface IStorageProvider
     {

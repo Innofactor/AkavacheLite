@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace AkavacheLite
+namespace AkavacheLite.Dynamics
 {
     // based on the excelent work of Akavache
     public static class BlobCache

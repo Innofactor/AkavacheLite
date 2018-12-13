@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace AkavacheLite
+namespace AkavacheLite.Dynamics
 {
     public interface IBlobCache : IDisposable
     {

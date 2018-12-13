@@ -11,6 +11,7 @@
     <PackageProjectUrl>https://github.com/HeathHopkins/AkavacheLite</PackageProjectUrl>
     <RepositoryUrl>https://github.com/HeathHopkins/AkavacheLite</RepositoryUrl>
     <PackageTags>Akavache, SQLite, Xamarin</PackageTags>
+    <AssemblyName>AkavacheLite</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
