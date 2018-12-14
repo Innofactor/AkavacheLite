@@ -66,10 +66,10 @@
                     return;
                 }
 
-                var directory = System.IO.Path.GetDirectoryName(_databasePath);
-                if (!System.IO.Directory.Exists(directory))
+                var directory = Path.GetDirectoryName(_databasePath);
+                if (!Directory.Exists(directory))
                 {
-                    System.IO.Directory.CreateDirectory(directory);
+                    Directory.CreateDirectory(directory);
                 }
 
                 _db = new SQLiteConnection(_databasePath);
