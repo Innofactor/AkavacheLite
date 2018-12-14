@@ -74,11 +74,11 @@
   <ItemGroup>
     <Compile Include="BlobCache.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Implementations\PersistentBlobCache.cs" />
-    <Compile Include="Implementations\Platforms\AndroidStorageProvider.cs" />
-    <Compile Include="Implementations\Platforms\AppleiOSStorageProvider.cs" />
-    <Compile Include="Implementations\Platforms\GenericApplicationStorageProvider.cs" />
-    <Compile Include="Implementations\Platforms\WindowsStorageProvider.cs" />
+    <Compile Include="PersistentBlobCache.cs" />
+    <Compile Include="Platforms\AndroidStorageProvider.cs" />
+    <Compile Include="Platforms\AppleiOSStorageProvider.cs" />
+    <Compile Include="Platforms\GenericApplicationStorageProvider.cs" />
+    <Compile Include="Platforms\WindowsStorageProvider.cs" />
     <Compile Include="Interfaces\IBlobCache.cs" />
     <Compile Include="Interfaces\IStorageProvider.cs" />
     <Compile Include="InternalExtensions.cs" />

@@ -1,8 +1,8 @@
-﻿namespace Akavache.Collections
+﻿namespace Akavache.Backend
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Akavache.Collections.Interfaces;
+    using Akavache.Backend.Interfaces;
 
     internal static class InternalExtensions
     {

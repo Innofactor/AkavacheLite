@@ -1,14 +1,14 @@
-﻿namespace Akavache.Collections.Implementations.Platforms
+﻿namespace Akavache.Backend.Platforms
 {
     using System;
     using System.IO;
-    using Akavache.Collections.Interfaces;
+    using Akavache.Backend.Interfaces;
 
-    public class GenericApplicationStorageProvider : IStorageProvider
+    public class AndroidStorageProvider : IStorageProvider
     {
         #region Public Constructors
 
-        public GenericApplicationStorageProvider()
+        public AndroidStorageProvider()
         {
         }
 

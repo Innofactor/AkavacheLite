@@ -1,7 +1,7 @@
-﻿namespace Akavache.Collections
+﻿namespace Akavache.Backend
 {
     using System;
-    using Akavache.Collections.Interfaces;
+    using Akavache.Backend.Interfaces;
 
     public static class Extensions
     {

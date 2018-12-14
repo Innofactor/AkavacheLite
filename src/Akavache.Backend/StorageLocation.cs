@@ -1,4 +1,4 @@
-﻿namespace Akavache.Collections
+﻿namespace Akavache.Backend
 {
     public enum StorageLocation
     {

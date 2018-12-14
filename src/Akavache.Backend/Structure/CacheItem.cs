@@ -1,4 +1,4 @@
-﻿namespace Akavache.Collections.Structure
+﻿namespace Akavache.Backend.Structure
 {
     internal class CacheItem
     {

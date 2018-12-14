@@ -1,9 +1,9 @@
-﻿namespace Akavache.Collections.Tests
+﻿namespace Akavache.Backend.Tests
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Akavache.Collections.Implementations;
+    using Akavache.Backend.Implementations;
     using Microsoft.Xrm.Sdk;
     using Newtonsoft.Json;
     using Xrm.Json.Serialization;
@@ -27,7 +27,7 @@
             var path = Path.Combine(Directory.GetCurrentDirectory(), $"{nameof(EntityDictionaryTests)}.db");
 
             // Act
-            var dictionary = new PersistentDictionary<string, Entity>(path)
+            var dictionary = new PersistentEntityDictionary<string, Entity>(path)
             {
                 ["test"] = entity
             };

@@ -1,4 +1,4 @@
-﻿namespace Akavache.Collections.Implementations
+﻿namespace Akavache.Backend
 {
     using System;
     using System.Collections.Generic;
@@ -6,8 +6,8 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Akavache.Collections.Interfaces;
-    using Akavache.Collections.Structure;
+    using Akavache.Backend.Interfaces;
+    using Akavache.Backend.Structure;
     using Newtonsoft.Json;
     using SQLite;
 

@@ -1,9 +1,8 @@
-﻿namespace Akavache.Collections
+﻿namespace Akavache.Backend
 {
     using System;
     using System.Linq;
-    using Akavache.Collections.Implementations;
-    using Akavache.Collections.Interfaces;
+    using Akavache.Backend.Interfaces;
 
     // based on the excelent work of Akavache
     public static class BlobCache

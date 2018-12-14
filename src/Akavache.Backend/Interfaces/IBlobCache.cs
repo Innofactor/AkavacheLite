@@ -1,4 +1,4 @@
-﻿namespace Akavache.Collections.Interfaces
+﻿namespace Akavache.Backend.Interfaces
 {
     using System;
     using System.Collections.Generic;

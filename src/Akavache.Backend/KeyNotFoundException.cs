@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Akavache.Collections
+namespace Akavache.Backend
 {
     public class KeyNotFoundException : Exception
     {

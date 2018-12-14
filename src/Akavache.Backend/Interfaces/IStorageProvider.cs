@@ -1,4 +1,4 @@
-﻿namespace Akavache.Collections.Interfaces
+﻿namespace Akavache.Backend.Interfaces
 {
     public interface IStorageProvider
     {

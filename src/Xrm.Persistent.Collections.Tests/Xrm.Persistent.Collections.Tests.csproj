@@ -99,6 +99,10 @@
       <Project>{19D18E8D-E967-4CBE-8822-617BD1FEEAA4}</Project>
       <Name>Xrm.Json.Serialization</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Xrm.Persistent.Collections\Xrm.Persistent.Collections.csproj">
+      <Project>{b238da8d-bdcb-46e0-a07e-8c4ab4413d4b}</Project>
+      <Name>Xrm.Persistent.Collections</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
