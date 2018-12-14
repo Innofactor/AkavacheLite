@@ -14,8 +14,14 @@
         // Get a list of items
         Task<IDictionary<string, byte[]>> Get(IEnumerable<string> keys);
 
+        // Get an object serialized via InsertObject
+        Task<byte[]> Get(string key, string type);
+
+        // Get a list of objects given a list of keys
+        Task<IDictionary<string, byte[]>> Get(IEnumerable<string> keys, string type);
+
         // Get all objects of type T
-        Task<IEnumerable<T>> GetAllObjects<T>();
+        Task<IEnumerable<byte[]>> GetAll(string type);
 
         // Return the time which an item was created
         Task<DateTimeOffset?> GetCreatedAt(string key);
@@ -23,19 +29,13 @@
         // Return the time which a list of keys were created
         Task<IDictionary<string, DateTimeOffset?>> GetCreatedAt(IEnumerable<string> keys);
 
-        // Get an object serialized via InsertObject
-        Task<T> GetObject<T>(string key);
-
         //// Return a list of all keys. Use for debugging purposes only.
         //Task<IEnumerable<string>> GetAllKeys();
         // Return the time which an object of type T was created
         Task<DateTimeOffset?> GetObjectCreatedAt<T>(string key);
 
         // Get an object serialized via InsertObject
-        Task<T> GetObjectOrDefault<T>(string key);
-
-        // Get a list of objects given a list of keys
-        Task<IDictionary<string, T>> GetObjects<T>(IEnumerable<string> keys);
+        Task<byte[]> GetOrDefault(string key, string type);
 
         /*
          * Save items to the store
@@ -48,10 +48,10 @@
         Task Insert(IDictionary<string, byte[]> keyValuePairs, DateTimeOffset? absoluteExpiration = null);
 
         // Insert a single object
-        Task InsertObject<T>(string key, T value, DateTimeOffset? absoluteExpiration = null);
+        Task Insert(string key, byte[] data, string type, DateTimeOffset? absoluteExpiration = null);
 
         // Insert a group of objects
-        Task InsertObjects<T>(IDictionary<string, T> keyValuePairs, DateTimeOffset? absoluteExpiration = null);
+        Task Insert(IDictionary<string, byte[]> keyValuePairs, string type, DateTimeOffset? absoluteExpiration = null);
 
         /*
          * Remove items from the store

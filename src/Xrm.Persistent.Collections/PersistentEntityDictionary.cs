@@ -43,7 +43,7 @@
             }
             set
             {
-                var task = cache.InsertObject(key.ToString(), value);
+                var task = cache.Insert(key.ToString(), value);
                 task.Wait();
             }
         }
@@ -53,7 +53,7 @@
         #region Public Methods
 
         public void Add(TKey key, Entity value) =>
-            cache.InsertObject(key.ToString(), value).Wait();
+            cache.Insert(key.ToString(), value).Wait();
 
         public void Add(KeyValuePair<TKey, Entity> item) => throw new NotImplementedException();
 

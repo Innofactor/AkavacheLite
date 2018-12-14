@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Akavache.Backend
+﻿namespace Akavache.Backend
 {
+    using System;
+
     public class KeyNotFoundException : Exception
     {
         #region Public Constructors

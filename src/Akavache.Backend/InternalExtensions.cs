@@ -17,13 +17,10 @@
         public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> items) =>
             Chunk(items, ChunkSize);
 
-        public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> items, int size)
-        {
-            return items
+        public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> items, int size) => items
                 .Select((o, i) => new { Index = i, Value = o })
                 .GroupBy(o => o.Index / size)
                 .Select(o => o.Select(p => p.Value));
-        }
 
         public static string GetDatabasePath(this IStorageProvider storageProvider, string applicationName, StorageLocation location)
         {

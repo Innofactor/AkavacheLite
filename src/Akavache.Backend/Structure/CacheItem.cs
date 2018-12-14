@@ -10,7 +10,7 @@
             set;
         }
 
-        public string Item
+        public byte[] Data
         {
             get;
             set;

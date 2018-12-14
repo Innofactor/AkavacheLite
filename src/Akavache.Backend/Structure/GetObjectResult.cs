@@ -1,8 +1,14 @@
 ﻿namespace Akavache.Backend.Structure
 {
-    internal class GetObjectResult<T>
+    internal class GetObjectResult
     {
         #region Public Properties
+
+        public byte[] Data
+        {
+            get;
+            set;
+        }
 
         public string Key
         {
@@ -10,7 +16,7 @@
             set;
         }
 
-        public T Object
+        public string Type
         {
             get;
             set;
