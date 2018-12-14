@@ -1,9 +1,12 @@
 ﻿namespace Akavache.Collections.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using Akavache.Collections.Implementations;
     using Microsoft.Xrm.Sdk;
+    using Newtonsoft.Json;
+    using Xrm.Json.Serialization;
     using Xunit;
 
     public class EntityDictionaryTests
@@ -11,8 +14,13 @@
         #region Public Methods
 
         [Fact]
-        public void EntityDictionary_Can_Store_And_Retrieve_Value()
+        public void Can_Store_And_Retrieve_Value()
         {
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Converters = new List<JsonConverter>() { new EntityConverter() }
+            };
+
             // Arrange
             var id = Guid.NewGuid();
             var entity = new Entity("test", id);

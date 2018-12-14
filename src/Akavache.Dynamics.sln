@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akavache.Collections", "Akavache.Collections\Akavache.Collections.csproj", "{E7314541-3D26-4C7B-AA5A-50C8E5635A25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akavache.Backend", "Akavache.Backend\Akavache.Backend.csproj", "{E7314541-3D26-4C7B-AA5A-50C8E5635A25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akavache.Collections.Tests", "Akavache.Collections.Tests\Akavache.Collections.Tests.csproj", "{9A55B207-FF9A-479B-9A63-1B03531A5AA3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xrm.Persistent.Collections.Tests", "Xrm.Persistent.Collections.Tests\Xrm.Persistent.Collections.Tests.csproj", "{9A55B207-FF9A-479B-9A63-1B03531A5AA3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xrm.Json.Serialization", "Xrm.Json.Serialization\Xrm.Json.Serialization.csproj", "{19D18E8D-E967-4CBE-8822-617BD1FEEAA4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xrm.Json.Serialization.Tests", "Xrm.Json.Serialization.Tests\Xrm.Json.Serialization.Tests.csproj", "{FFC3DF0D-024D-4193-80EB-16755A283F8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xrm.Persistent.Collections", "Xrm.Persistent.Collections\Xrm.Persistent.Collections.csproj", "{B238DA8D-BDCB-46E0-A07E-8C4AB4413D4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{FFC3DF0D-024D-4193-80EB-16755A283F8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFC3DF0D-024D-4193-80EB-16755A283F8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFC3DF0D-024D-4193-80EB-16755A283F8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B238DA8D-BDCB-46E0-A07E-8C4AB4413D4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B238DA8D-BDCB-46E0-A07E-8C4AB4413D4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B238DA8D-BDCB-46E0-A07E-8C4AB4413D4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B238DA8D-BDCB-46E0-A07E-8C4AB4413D4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

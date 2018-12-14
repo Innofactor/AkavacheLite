@@ -7,8 +7,8 @@
     <ProjectGuid>{E7314541-3D26-4C7B-AA5A-50C8E5635A25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Akavache.Collections</RootNamespace>
-    <AssemblyName>Akavache.Collections</AssemblyName>
+    <RootNamespace>Akavache.Backend</RootNamespace>
+    <AssemblyName>Akavache.Backend</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -77,7 +77,6 @@
     <Compile Include="Implementations\PersistentBlobCache.cs" />
     <Compile Include="Implementations\Platforms\AndroidStorageProvider.cs" />
     <Compile Include="Implementations\Platforms\AppleiOSStorageProvider.cs" />
-    <Compile Include="Implementations\PersistentDictionary.cs" />
     <Compile Include="Implementations\Platforms\GenericApplicationStorageProvider.cs" />
     <Compile Include="Implementations\Platforms\WindowsStorageProvider.cs" />
     <Compile Include="Interfaces\IBlobCache.cs" />
