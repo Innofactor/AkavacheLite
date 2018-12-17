@@ -8,7 +8,6 @@
     using System.Threading.Tasks;
     using Akavache.Backend.Interfaces;
     using Akavache.Backend.Structure;
-    using Newtonsoft.Json;
     using SQLite;
 
     public class PersistentBlobCache : IBlobCache
@@ -18,7 +17,6 @@
         private readonly Type _cacheItemType;
         private readonly SemaphoreSlim _createSemaphore;
         private readonly string _databasePath;
-        private readonly JsonSerializer _serializer;
         private readonly SemaphoreSlim _writeSemaphore;
         private SQLiteConnection _db;
 
@@ -32,15 +30,6 @@
             _writeSemaphore = new SemaphoreSlim(1, 1);
             _createSemaphore = new SemaphoreSlim(1, 1);
             _cacheItemType = typeof(CacheItem);
-
-            var serializerSettings = new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore,
-                MissingMemberHandling = MissingMemberHandling.Ignore,
-                DefaultValueHandling = DefaultValueHandling.Ignore,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
-            _serializer = JsonSerializer.Create(serializerSettings);
         }
 
         public PersistentBlobCache(IStorageProvider storageProvider, StorageLocation location, string applicationName)
@@ -424,17 +413,6 @@
 
         #region Private Methods
 
-        private T Deserialize<T>(string json)
-        {
-            using (var reader = new StringReader(json))
-            {
-                using (var jsonReader = new JsonTextReader(reader))
-                {
-                    return _serializer.Deserialize<T>(jsonReader);
-                }
-            }
-        }
-
         private void EnsureSchema()
         {
             var tableSQL = @"
@@ -459,18 +437,6 @@
             }
 
             return readOperation(_db);
-        }
-
-        private string Serialize(object obj)
-        {
-            using (var sw = new StringWriter())
-            {
-                using (var jsonWriter = new JsonTextWriter(sw))
-                {
-                    _serializer.Serialize(jsonWriter, obj);
-                    return sw.ToString();
-                }
-            }
         }
 
         private async Task Write(Action<SQLiteConnection> writeOperation)
