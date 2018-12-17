@@ -16,18 +16,13 @@
         [Fact]
         public void Can_Store_And_Retrieve_Value()
         {
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                Converters = new List<JsonConverter>() { new EntityConverter() }
-            };
-
             // Arrange
             var id = Guid.NewGuid();
             var entity = new Entity("test", id);
             var path = Path.Combine(Directory.GetCurrentDirectory(), $"{nameof(EntityDictionaryTests)}.db");
 
             // Act
-            var dictionary = new PersistentEntityDictionary<string, Entity>(path)
+            var dictionary = new EntityDictionary<string, Entity>(path)
             {
                 ["test"] = entity
             };
