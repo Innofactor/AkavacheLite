@@ -22,7 +22,7 @@
             var path = Path.Combine(Directory.GetCurrentDirectory(), $"{nameof(EntityDictionaryTests)}.db");
 
             // Act
-            var dictionary = new EntityDictionary<string, Entity>(path)
+            var dictionary = new LocalDictionary<string, Entity>(path)
             {
                 ["test"] = entity
             };

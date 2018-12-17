@@ -7,7 +7,7 @@
     using Newtonsoft.Json;
     using Xrm.Json.Serialization;
 
-    public class EntityDictionary<TKey, TValue> : IDictionary<TKey, TValue>
+    public class LocalDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
         #region Private Fields
 
@@ -17,7 +17,7 @@
 
         #region Public Constructors
 
-        public EntityDictionary(string databasePath)
+        public LocalDictionary(string databasePath)
         {
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
@@ -70,7 +70,8 @@
         public void Add(TKey key, TValue value) =>
             cache.Insert(key.ToString(), Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(value))).Wait();
 
-        public void Add(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
+        public void Add(KeyValuePair<TKey, TValue> item) => 
+            Add(item.Key, item.Value);
 
         public void Clear() => throw new NotImplementedException();
 

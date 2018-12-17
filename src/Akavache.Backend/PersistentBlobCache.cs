@@ -147,7 +147,7 @@
         }
 
         public Task<IEnumerable<byte[]>> GetAll(string type) =>
-                    Read(o =>
+            Read(o =>
             {
                 var query = @"
                 SELECT Data from CacheItem
@@ -159,7 +159,7 @@
                     .Select(p => p.Data);
             });
 
-        // todo: add to interface
+        // TODO: add to interface
         public Task<IEnumerable<KeyResult>> GetAllKeys()
         {
             var query = @"
@@ -256,7 +256,7 @@
         }
 
         public Task<byte[]> GetOrDefault(string key, string type) =>
-                            Read(o =>
+            Read(o =>
             {
                 var query = @"
                     SELECT * FROM CacheItem
