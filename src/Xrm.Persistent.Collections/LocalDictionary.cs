@@ -7,7 +7,7 @@
     using Newtonsoft.Json;
     using Xrm.Json.Serialization;
 
-    public class LocalDictionary<TKey, TValue> : IDictionary<TKey, TValue>
+    public class LocalDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IDisposable
     {
         #region Private Fields
 
@@ -70,7 +70,7 @@
         public void Add(TKey key, TValue value) =>
             cache.Insert(key.ToString(), Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(value))).Wait();
 
-        public void Add(KeyValuePair<TKey, TValue> item) => 
+        public void Add(KeyValuePair<TKey, TValue> item) =>
             Add(item.Key, item.Value);
 
         public void Clear() => throw new NotImplementedException();
@@ -80,6 +80,8 @@
         public bool ContainsKey(TKey key) => throw new NotImplementedException();
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => throw new NotImplementedException();
+
+        public void Dispose() => cache.Dispose();
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => throw new NotImplementedException();
 
