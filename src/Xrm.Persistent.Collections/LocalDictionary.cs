@@ -91,7 +91,22 @@
 
         public bool Remove(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
 
-        public bool TryGetValue(TKey key, out TValue value) => throw new NotImplementedException();
+        public bool TryGetValue(TKey key, out TValue value)
+        {
+            value = default(TValue);
+
+            try
+            {
+                value = this[key];
+                return value != null;
+            }
+            catch (KeyNotFoundException)
+            {
+                // Will this ever happen?
+                // PersistentBlobCache.GetOrDefault returns empty byte array if the key wasn't found
+                return false;
+            }
+        }
 
         #endregion Public Methods
     }
