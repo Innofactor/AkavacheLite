@@ -37,7 +37,7 @@
             // Arrange
             var id = Guid.NewGuid();
             var entity = new Entity("test", id);
-            
+
             // Act
             dictionary.Add("test", entity);
             var retrieved = dictionary.TryGetValue("test", out Entity result);
@@ -56,10 +56,10 @@
             // Arrange
             var id = Guid.NewGuid();
             var entity = new Entity("test", id);
-            
+
             // Act
             dictionary["test"] = entity;
-            
+
             var result = dictionary["test"];
 
             // Assert
@@ -75,10 +75,32 @@
         }
 
         [Fact]
+        public void Returns_Correct_Number_Of_Items()
+        {
+            // Arrange
+            var rnd = new Random();
+            var count = rnd.Next(0, 11);
+
+            for (var i = 0; i < count; i++)
+            {
+                var id = Guid.NewGuid();
+                var entityName = $"test{i}";
+                var entity = new Entity(entityName, id);
+                dictionary[entityName] = entity;
+            }
+
+            // Act
+            var result = dictionary.Count;
+
+            // Assert
+            Assert.Equal(count, result);
+        }
+
+        [Fact]
         public void TryGet_Returns_Default_If_Key_Not_Found()
         {
             // Arrange
-            
+
             // Act
             var p = dbPath;
 

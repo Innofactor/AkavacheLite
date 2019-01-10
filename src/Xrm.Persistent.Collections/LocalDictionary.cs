@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using Newtonsoft.Json;
     using Xrm.Json.Serialization;
@@ -38,7 +39,17 @@
 
         #region Public Properties
 
-        public int Count => throw new NotImplementedException();
+        public int Count
+        {
+            get
+            {
+                var task = cache.GetAllKeys();
+                task.Wait();
+
+                return task.Result.Count();
+            }
+        }
+
         public bool IsReadOnly => throw new NotImplementedException();
         public ICollection<TKey> Keys => throw new NotImplementedException();
         public ICollection<TValue> Values => throw new NotImplementedException();
