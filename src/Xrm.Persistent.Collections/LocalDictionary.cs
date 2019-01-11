@@ -117,7 +117,13 @@
             return task.Result.SequenceEqual(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(item.Value)));
         }
 
-        public bool ContainsKey(TKey key) => throw new NotImplementedException();
+        public bool ContainsKey(TKey key)
+        {
+            var task = cache.Get(key.ToString());
+            task.Wait();
+
+            return task.Result.Length > 0;
+        }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => throw new NotImplementedException();
 

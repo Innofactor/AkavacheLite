@@ -51,7 +51,25 @@
         }
 
         [Fact]
-        public void Can_Check_If_Dictionary_Contains()
+        public void Can_Check_If_Dictionary_Contains_Key()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var entity = new Entity("test", id);
+
+            // Act
+            dictionary["test"] = entity;
+
+            var firstSearch = dictionary.ContainsKey("test");
+            var secondSearch = dictionary.ContainsKey("test1");
+
+            // Assert
+            Assert.True(firstSearch);
+            Assert.False(secondSearch);
+        }
+
+        [Fact]
+        public void Can_Check_If_Dictionary_Contains_Value()
         {
             // Arrange
             var id = Guid.NewGuid();
