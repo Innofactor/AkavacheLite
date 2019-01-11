@@ -105,7 +105,11 @@
         public void Add(KeyValuePair<TKey, TValue> item) =>
             Add(item.Key, item.Value);
 
-        public void Clear() => cache.InvalidateAll().Wait();
+        public void Clear()
+        {
+            cache.InvalidateAll().Wait();
+            cache.Vacuum().Wait();
+        }
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
