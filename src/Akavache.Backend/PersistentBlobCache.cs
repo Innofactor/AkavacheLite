@@ -387,6 +387,17 @@
             return Write(o => o.Execute(sql, typeof(T).FullName, key));
         }
 
+        public Task InvalidateObject(string key)
+        {
+            var sql = @"
+                DELETE FROM CacheItem
+                WHERE
+                    Key = ?";
+
+            return Write(o => o.Execute(sql, key));
+        }
+
+
         public Task InvalidateObjects<T>(IEnumerable<string> keys) =>
             Write(db =>
             {
