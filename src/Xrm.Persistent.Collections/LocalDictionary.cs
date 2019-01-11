@@ -107,7 +107,15 @@
 
         public void Clear() => cache.InvalidateAll().Wait();
 
-        public bool Contains(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
+        public bool Contains(KeyValuePair<TKey, TValue> item)
+        {
+            var task = cache.Get(item.Key.ToString());
+            task.Wait();
+
+            // TODO: Maybe compare as strings instead?
+            // TODO: Calculate MD5 for both values and compare those?
+            return task.Result.SequenceEqual(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(item.Value)));
+        }
 
         public bool ContainsKey(TKey key) => throw new NotImplementedException();
 

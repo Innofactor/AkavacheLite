@@ -1,6 +1,7 @@
 ﻿namespace Akavache.Backend.Tests
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using Akavache.Backend.Implementations;
@@ -47,6 +48,27 @@
             Assert.True(retrieved);
             Assert.Equal(entity.Id, result.Id);
             Assert.Equal(entity.LogicalName, result.LogicalName);
+        }
+
+        [Fact]
+        public void Can_Check_If_Dictionary_Contains()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var entity = new Entity("test", id);
+
+            // Act
+            dictionary["test"] = entity;
+
+            var existing = new KeyValuePair<string, Entity>("test", entity);
+            var nonExisting = new KeyValuePair<string, Entity>("test1", new Entity());
+
+            var firstSearch = dictionary.Contains(existing);
+            var secondSearch = dictionary.Contains(nonExisting);
+
+            // Assert
+            Assert.True(firstSearch);
+            Assert.False(secondSearch);
         }
 
         [Fact]
