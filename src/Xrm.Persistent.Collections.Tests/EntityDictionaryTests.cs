@@ -1,10 +1,9 @@
-﻿namespace Akavache.Backend.Tests
+﻿namespace Innofactor.Xrm.Persistent.Collections
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using Akavache.Backend.Implementations;
     using Microsoft.Xrm.Sdk;
     using Xunit;
 
