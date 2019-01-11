@@ -146,6 +146,24 @@
         }
 
         [Fact]
+        public void Can_Remove_By_KeyValuePair()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var entity = new Entity("test", id);
+
+            // Act
+            dictionary["test"] = entity;
+
+            var pair = new KeyValuePair<string, Entity>("test", entity);
+            var result = dictionary.Remove(pair);
+
+            // Assert
+            Assert.True(result);
+            Assert.False(dictionary.ContainsKey("test"));
+        }
+
+        [Fact]
         public void Can_Store_And_Retrieve_Value()
         {
             // Arrange

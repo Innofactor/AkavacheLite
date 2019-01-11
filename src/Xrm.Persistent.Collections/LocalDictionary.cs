@@ -147,7 +147,7 @@
             }
         }
 
-        public bool Remove(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
+        public bool Remove(KeyValuePair<TKey, TValue> item) => Remove(item.Key);
 
         public bool TryGetValue(TKey key, out TValue value)
         {
