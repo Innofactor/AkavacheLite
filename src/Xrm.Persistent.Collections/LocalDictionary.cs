@@ -105,23 +105,78 @@
         public void Add(KeyValuePair<TKey, TValue> item) =>
             Add(item.Key, item.Value);
 
-        public void Clear() => cache.InvalidateAll().Wait();
+        public void Clear()
+        {
+            cache.InvalidateAll().Wait();
+            cache.Vacuum().Wait();
+        }
 
-        public bool Contains(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
+        public bool Contains(KeyValuePair<TKey, TValue> item)
+        {
+            var task = cache.Get(item.Key.ToString());
+            task.Wait();
 
-        public bool ContainsKey(TKey key) => throw new NotImplementedException();
+            // TODO: Maybe compare as strings instead?
+            // TODO: Calculate MD5 for both values and compare those?
+            return task.Result.SequenceEqual(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(item.Value)));
+        }
 
-        public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => throw new NotImplementedException();
+        public bool ContainsKey(TKey key)
+        {
+            var task = cache.Get(key.ToString());
+            task.Wait();
+
+            return task.Result.Length > 0;
+        }
+
+        public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
+        {
+            var source = new List<KeyValuePair<TKey, TValue>>();
+
+            foreach (var item in this)
+            {
+                source.Add(item);
+            }
+
+            source.ToArray().CopyTo(array, arrayIndex);
+        }
 
         public void Dispose() => cache.Dispose();
 
-        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => throw new NotImplementedException();
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+        {
+            var keys = Keys;
 
-        IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
+            foreach (var key in keys)
+            {
+                var value = default(TValue);
 
-        public bool Remove(TKey key) => throw new NotImplementedException();
+                if (TryGetValue(key, out var found))
+                {
+                    value = found;
+                }
 
-        public bool Remove(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
+                yield return new KeyValuePair<TKey, TValue>(key, value);
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public bool Remove(TKey key)
+        {
+            try
+            {
+                var task = cache.InvalidateObject(key.ToString());
+                task.Wait();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool Remove(KeyValuePair<TKey, TValue> item) => Remove(item.Key);
 
         public bool TryGetValue(TKey key, out TValue value)
         {
