@@ -160,6 +160,20 @@
             });
 
         // TODO: add to interface
+        public Task<IEnumerable<byte[]>> GetAll() =>
+            Read(o =>
+            {
+                var query = @"
+                SELECT Data from CacheItem
+                WHERE
+                    (Time IS null OR Time >= ?)";
+
+                return o.Query<CacheItem>(query, DateTime.UtcNow.Ticks)
+                    .Select(p => p.Data);
+            });
+
+
+        // TODO: add to interface
         public Task<IEnumerable<KeyResult>> GetAllKeys()
         {
             var query = @"

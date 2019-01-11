@@ -3,11 +3,12 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
     using Newtonsoft.Json;
     using Xrm.Json.Serialization;
 
-    public class LocalDictionary<TKey, TValue> : IDictionary<TKey, TValue>
+    public class LocalDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IDisposable
     {
         #region Private Fields
 
@@ -38,10 +39,41 @@
 
         #region Public Properties
 
-        public int Count => throw new NotImplementedException();
+        public int Count
+        {
+            get
+            {
+                var task = cache.GetAllKeys();
+                task.Wait();
+
+                return task.Result.Count();
+            }
+        }
+
         public bool IsReadOnly => throw new NotImplementedException();
-        public ICollection<TKey> Keys => throw new NotImplementedException();
-        public ICollection<TValue> Values => throw new NotImplementedException();
+
+        public ICollection<TKey> Keys
+        {
+            get
+            {
+                var task = cache.GetAllKeys();
+                task.Wait();
+
+                // Default to string if no key type was set
+                return task.Result.Select(v => (TKey)Convert.ChangeType(v.Key, v.Type ?? typeof(string))).ToList();
+            }
+        }
+
+        public ICollection<TValue> Values
+        {
+            get
+            {
+                var task = cache.GetAll();
+                task.Wait();
+
+                return task.Result.Select(v => JsonConvert.DeserializeObject<TValue>(Encoding.UTF8.GetString(v))).ToList();
+            }
+        }
 
         #endregion Public Properties
 
@@ -70,16 +102,18 @@
         public void Add(TKey key, TValue value) =>
             cache.Insert(key.ToString(), Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(value))).Wait();
 
-        public void Add(KeyValuePair<TKey, TValue> item) => 
+        public void Add(KeyValuePair<TKey, TValue> item) =>
             Add(item.Key, item.Value);
 
-        public void Clear() => throw new NotImplementedException();
+        public void Clear() => cache.InvalidateAll().Wait();
 
         public bool Contains(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
 
         public bool ContainsKey(TKey key) => throw new NotImplementedException();
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => throw new NotImplementedException();
+
+        public void Dispose() => cache.Dispose();
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => throw new NotImplementedException();
 
@@ -89,7 +123,22 @@
 
         public bool Remove(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
 
-        public bool TryGetValue(TKey key, out TValue value) => throw new NotImplementedException();
+        public bool TryGetValue(TKey key, out TValue value)
+        {
+            value = default(TValue);
+
+            try
+            {
+                value = this[key];
+                return value != null;
+            }
+            catch (KeyNotFoundException)
+            {
+                // Will this ever happen?
+                // PersistentBlobCache.GetOrDefault returns empty byte array if the key wasn't found
+                return false;
+            }
+        }
 
         #endregion Public Methods
     }
