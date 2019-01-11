@@ -133,7 +133,19 @@
 
         IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
 
-        public bool Remove(TKey key) => throw new NotImplementedException();
+        public bool Remove(TKey key)
+        {
+            try
+            {
+                var task = cache.InvalidateObject(key.ToString());
+                task.Wait();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
         public bool Remove(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
 
