@@ -69,9 +69,9 @@
       <Project>{e7314541-3d26-4c7b-aa5a-50c8e5635a25}</Project>
       <Name>Akavache.Backend</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Xrm.Json.Serialization\Xrm.Json.Serialization.csproj">
+    <ProjectReference Include="..\Xrm.Json.Serialization\Innofactor.Xrm.Json.Serialization.csproj">
       <Project>{19d18e8d-e967-4cbe-8822-617bd1feeaa4}</Project>
-      <Name>Xrm.Json.Serialization</Name>
+      <Name>Innofactor.Xrm.Json.Serialization</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
