@@ -129,9 +129,24 @@
 
         public void Dispose() => cache.Dispose();
 
-        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator() => throw new NotImplementedException();
+        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+        {
+            var keys = Keys;
 
-        IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
+            foreach (var key in keys)
+            {
+                var value = default(TValue);
+
+                if (TryGetValue(key, out var found))
+                {
+                    value = found;
+                }
+
+                yield return new KeyValuePair<TKey, TValue>(key, value);
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         public bool Remove(TKey key)
         {

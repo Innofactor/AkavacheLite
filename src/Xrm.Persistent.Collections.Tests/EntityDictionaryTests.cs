@@ -90,6 +90,29 @@
         }
 
         [Fact]
+        public void Can_Get_Enumerator()
+        {
+            // Arrange
+            var iterated = 0;
+            var id1 = Guid.NewGuid();
+            var id2 = Guid.NewGuid();
+            var entity1 = new Entity("test1", id1);
+            var entity2 = new Entity("test2", id2);
+
+            // Act
+            dictionary["test1"] = entity1;
+            dictionary["test2"] = entity2;
+
+            foreach (var item in dictionary)
+            {
+                iterated++;
+            }
+
+            // Assert
+            Assert.Equal(2, iterated);
+        }
+
+        [Fact]
         public void Can_Get_Keys()
         {
             // Arrange
