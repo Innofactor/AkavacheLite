@@ -125,7 +125,17 @@
             return task.Result.Length > 0;
         }
 
-        public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex) => throw new NotImplementedException();
+        public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
+        {
+            var source = new List<KeyValuePair<TKey, TValue>>();
+
+            foreach (var item in this)
+            {
+                source.Add(item);
+            }
+
+            source.ToArray().CopyTo(array, arrayIndex);
+        }
 
         public void Dispose() => cache.Dispose();
 

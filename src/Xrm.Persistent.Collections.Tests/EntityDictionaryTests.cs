@@ -90,6 +90,36 @@
         }
 
         [Fact]
+        public void Can_Copy()
+        {
+            // Arrange
+            var id0 = Guid.NewGuid();
+            var id1 = Guid.NewGuid();
+            var id2 = Guid.NewGuid();
+            var id3 = Guid.NewGuid();
+            var id4 = Guid.NewGuid();
+            var entity3 = new Entity("test3", id3);
+            var entity4 = new Entity("test4", id4);
+            var target = new KeyValuePair<string, Entity>[]
+            {
+                new KeyValuePair<string, Entity>("test0", new Entity("test0", id0)),
+                new KeyValuePair<string, Entity>("test1", new Entity("test1", id1)),
+                new KeyValuePair<string, Entity>("test2", new Entity("test2", id2))
+            };
+
+            Array.Resize(ref target, 4);
+
+            // Act
+            dictionary["test3"] = entity3;
+            dictionary["test4"] = entity4;
+
+            dictionary.CopyTo(target, 2);
+
+            // Assert
+            Assert.Equal(4, target.Length);
+        }
+
+        [Fact]
         public void Can_Get_Enumerator()
         {
             // Arrange
