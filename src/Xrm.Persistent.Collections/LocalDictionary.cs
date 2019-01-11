@@ -51,8 +51,29 @@
         }
 
         public bool IsReadOnly => throw new NotImplementedException();
-        public ICollection<TKey> Keys => throw new NotImplementedException();
-        public ICollection<TValue> Values => throw new NotImplementedException();
+
+        public ICollection<TKey> Keys
+        {
+            get
+            {
+                var task = cache.GetAllKeys();
+                task.Wait();
+
+                // Default to string if no key type was set
+                return task.Result.Select(v => (TKey)Convert.ChangeType(v.Key, v.Type ?? typeof(string))).ToList();
+            }
+        }
+
+        public ICollection<TValue> Values
+        {
+            get
+            {
+                var task = cache.GetAll();
+                task.Wait();
+
+                return task.Result.Select(v => JsonConvert.DeserializeObject<TValue>(Encoding.UTF8.GetString(v))).ToList();
+            }
+        }
 
         #endregion Public Properties
 
@@ -84,7 +105,7 @@
         public void Add(KeyValuePair<TKey, TValue> item) =>
             Add(item.Key, item.Value);
 
-        public void Clear() => throw new NotImplementedException();
+        public void Clear() => cache.InvalidateAll().Wait();
 
         public bool Contains(KeyValuePair<TKey, TValue> item) => throw new NotImplementedException();
 

@@ -2,6 +2,7 @@
 {
     using System;
     using System.IO;
+    using System.Linq;
     using Akavache.Backend.Implementations;
     using Microsoft.Xrm.Sdk;
     using Xunit;
@@ -49,10 +50,47 @@
         }
 
         [Fact]
+        public void Can_Get_Keys()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var entity = new Entity("test", id);
+
+            // Act
+            dictionary["test"] = entity;
+
+            var result = dictionary.Keys;
+
+            // Assert
+            Assert.Equal("test", result.SingleOrDefault());
+            Assert.Equal(typeof(string), result.SingleOrDefault().GetType());
+        }
+
+        [Fact]
+        public void Can_Get_Values()
+        {
+            // Arrange
+            var id1 = Guid.NewGuid();
+            var id2 = Guid.NewGuid();
+            var entity1 = new Entity("test1", id1);
+            var entity2 = new Entity("test2", id2);
+
+            // Act
+            dictionary["test1"] = entity1;
+            dictionary["test2"] = entity2;
+
+            var result = dictionary.Values.ToList();
+
+            // Assert
+            Assert.Equal("test1", result[0].LogicalName);
+            Assert.Equal("test2", result[1].LogicalName);
+            Assert.Equal(id1, result[0].Id);
+            Assert.Equal(id2, result[1].Id);
+        }
+
+        [Fact]
         public void Can_Store_And_Retrieve_Value()
         {
-            var p = dbPath;
-
             // Arrange
             var id = Guid.NewGuid();
             var entity = new Entity("test", id);
@@ -65,6 +103,25 @@
             // Assert
             Assert.Equal(entity.LogicalName, result.LogicalName);
             Assert.Equal(entity.Id, result.Id);
+        }
+
+        [Fact]
+        public void Dictionaty_Gets_Cleared()
+        {
+            // Arrange
+            var id1 = Guid.NewGuid();
+            var id2 = Guid.NewGuid();
+            var entity1 = new Entity("test1", id1);
+            var entity2 = new Entity("test2", id2);
+
+            // Act
+            dictionary["test1"] = entity1;
+            dictionary["test2"] = entity2;
+
+            dictionary.Clear();
+
+            // Assert
+            Assert.True(dictionary.Count == 0);
         }
 
         public void Dispose()
