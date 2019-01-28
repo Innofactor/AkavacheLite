@@ -33,15 +33,14 @@
         [Fact]
         public void Can_Add_And_TryGet_Value()
         {
-            var p = dbPath;
-
             // Arrange
             var id = Guid.NewGuid();
             var entity = new Entity("test", id);
+            var result = default(Entity);
 
             // Act
             dictionary.Add("test", entity);
-            var retrieved = dictionary.TryGetValue("test", out Entity result);
+            var retrieved = dictionary.TryGetValue("test", out result);
 
             // Assert
             Assert.True(retrieved);
@@ -284,11 +283,10 @@
         public void TryGet_Returns_Default_If_Key_Not_Found()
         {
             // Arrange
+            var result = default(Entity);
 
             // Act
-            var p = dbPath;
-
-            var retrieved = dictionary.TryGetValue("test", out Entity result);
+            var retrieved = dictionary.TryGetValue("test", out result);
 
             // Assert
             Assert.False(retrieved);
