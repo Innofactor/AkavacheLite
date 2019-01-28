@@ -257,7 +257,12 @@
             var result = new Dictionary<string, DateTimeOffset?>();
             foreach (var key in keys)
             {
-                if (foundKeys.TryGetValue(key, out var dateTimeOffset))
+                // This piece should not be modernized for sake of CI server
+#pragma warning disable IDE0018 // Inline variable declaration
+                var dateTimeOffset = default(DateTimeOffset);
+#pragma warning restore IDE0018 // Inline variable declaration
+
+                if (foundKeys.TryGetValue(key, out dateTimeOffset))
                 {
                     result.Add(key, dateTimeOffset);
                 }
