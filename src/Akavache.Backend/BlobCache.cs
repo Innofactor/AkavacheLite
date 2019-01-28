@@ -82,8 +82,14 @@
 
         public static IStorageProvider StorageProvider
         {
-            get => _storageProvider ?? throw new Exception($"You must set {nameof(BlobCache)}.{nameof(StorageProvider)} on startup.");
-            set => _storageProvider = value;
+            get
+            {
+                return _storageProvider ?? throw new Exception($"You must set {nameof(BlobCache)}.{nameof(StorageProvider)} on startup.");
+            }
+            set
+            {
+                _storageProvider = value;
+            }
         }
 
         /// <summary>
