@@ -2,7 +2,6 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>Xrm.Persistent.Collections</id>
-    <version>1.0.0</version>
     <title>Xrm.Persistent.Collections</title>
     <authors>Heath Hopkins, Alexey Shytikov, Niklas Malmqvist</authors>
     <owners>Innofactor AB</owners>
