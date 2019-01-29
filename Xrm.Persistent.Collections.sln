@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akavache.Backend", "src\Akavache.Backend\Akavache.Backend.csproj", "{E7314541-3D26-4C7B-AA5A-50C8E5635A25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Innofactor.Xrm.Akavache.Backend", "src\Innofactor.Xrm.Akavache.Backend\Innofactor.Xrm.Akavache.Backend.csproj", "{E7314541-3D26-4C7B-AA5A-50C8E5635A25}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Innofactor.Xrm.Json.Serialization", "src\Innofactor.Xrm.Json.Serialization\Innofactor.Xrm.Json.Serialization.csproj", "{19D18E8D-E967-4CBE-8822-617BD1FEEAA4}"
 EndProject

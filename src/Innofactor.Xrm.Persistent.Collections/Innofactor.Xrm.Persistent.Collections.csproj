@@ -65,7 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Akavache.Backend\Innofactor.Xrm.Akavache.Backend.csproj">
+    <ProjectReference Include="..\Innofactor.Xrm.Akavache.Backend\Innofactor.Xrm.Akavache.Backend.csproj">
       <Project>{e7314541-3d26-4c7b-aa5a-50c8e5635a25}</Project>
       <Name>Innofactor.Xrm.Akavache.Backend</Name>
     </ProjectReference>
