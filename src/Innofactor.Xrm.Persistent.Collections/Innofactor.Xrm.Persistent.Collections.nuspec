@@ -10,21 +10,5 @@
     <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
     <description>Persistent (Akavache backed) collections for Microsoft Dynamics CRM</description>
     <copyright>Copyright © Innofactor AB 2019</copyright>
-    <dependencies>
-      <dependency id="Microsoft.CrmSdk.CoreAssemblies" version="8.2.0.2" />
-      <dependency id="Newtonsoft.Json" version="12.0.1" />
-      <dependency id="sqlite-net-pcl" version="1.5.231" />
-      <dependency id="SQLitePCLRaw.bundle_green" version="1.1.11" />
-      <dependency id="SQLitePCLRaw.core" version="1.1.11" />
-      <dependency id="SQLitePCLRaw.lib.e_sqlite3.linux" version="1.1.11" />
-      <dependency id="SQLitePCLRaw.lib.e_sqlite3.osx" version="1.1.11" />
-      <dependency id="SQLitePCLRaw.lib.e_sqlite3.v110_xp" version="1.1.11" />
-      <dependency id="SQLitePCLRaw.provider.e_sqlite3.net45" version="1.1.11" />
-    </dependencies>
   </metadata>
-  <files>
-    <file src="src\Innofactor.Xrm.Persistent.Collections\bin\Release\Innofactor.Xrm.Akavache.Backend.dll" target="lib\net452" />
-    <file src="src\Innofactor.Xrm.Persistent.Collections\bin\Release\Innofactor.Xrm.Json.Serialization.dll" target="lib\net452" />
-    <file src="src\Innofactor.Xrm.Persistent.Collections\bin\Release\Innofactor.Xrm.Persistent.Collections.dll" target="lib\net452" />
-  </files>
 </package>
