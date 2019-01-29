@@ -1,4 +1,4 @@
-﻿namespace Akavache.Backend
+﻿namespace Innofactor.Xrm.Akavache.Backend
 {
     using System.Collections.Generic;
     using System.Linq;

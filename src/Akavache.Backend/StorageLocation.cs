@@ -1,4 +1,4 @@
-﻿namespace Akavache.Backend
+﻿namespace Innofactor.Xrm.Akavache.Backend
 {
     public enum StorageLocation
     {

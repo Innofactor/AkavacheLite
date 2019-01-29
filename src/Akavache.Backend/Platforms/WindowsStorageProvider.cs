@@ -1,4 +1,4 @@
-﻿namespace Akavache.Backend.Platforms
+﻿namespace Innofactor.Xrm.Akavache.Backend.Platforms
 {
     using System;
     using Akavache.Backend.Interfaces;

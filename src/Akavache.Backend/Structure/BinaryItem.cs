@@ -1,4 +1,4 @@
-﻿namespace Akavache.Backend.Structure
+﻿namespace Innofactor.Xrm.Akavache.Backend.Structure
 {
     internal class BinaryItem
     {
