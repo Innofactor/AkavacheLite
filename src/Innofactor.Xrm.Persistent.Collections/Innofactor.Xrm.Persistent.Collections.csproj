@@ -65,9 +65,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Akavache.Backend\Akavache.Backend.csproj">
+    <ProjectReference Include="..\Akavache.Backend\Innofactor.Xrm.Akavache.Backend.csproj">
       <Project>{e7314541-3d26-4c7b-aa5a-50c8e5635a25}</Project>
-      <Name>Akavache.Backend</Name>
+      <Name>Innofactor.Xrm.Akavache.Backend</Name>
     </ProjectReference>
     <ProjectReference Include="..\Innofactor.Xrm.Json.Serialization\Innofactor.Xrm.Json.Serialization.csproj">
       <Project>{19d18e8d-e967-4cbe-8822-617bd1feeaa4}</Project>

@@ -106,9 +106,9 @@
     <Analyzer Include="..\..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Akavache.Backend\Akavache.Backend.csproj">
+    <ProjectReference Include="..\Akavache.Backend\Innofactor.Xrm.Akavache.Backend.csproj">
       <Project>{e7314541-3d26-4c7b-aa5a-50c8e5635a25}</Project>
-      <Name>Akavache.Backend</Name>
+      <Name>Innofactor.Xrm.Akavache.Backend</Name>
     </ProjectReference>
     <ProjectReference Include="..\Innofactor.Xrm.Json.Serialization\Innofactor.Xrm.Json.Serialization.csproj">
       <Project>{19D18E8D-E967-4CBE-8822-617BD1FEEAA4}</Project>
