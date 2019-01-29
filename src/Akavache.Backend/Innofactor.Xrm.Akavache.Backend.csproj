@@ -7,8 +7,8 @@
     <ProjectGuid>{E7314541-3D26-4C7B-AA5A-50C8E5635A25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Akavache.Backend</RootNamespace>
-    <AssemblyName>Akavache.Backend</AssemblyName>
+    <RootNamespace>Innofactor.Xrm.Akavache.Backend</RootNamespace>
+    <AssemblyName>Innofactor.Xrm.Akavache.Backend</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
