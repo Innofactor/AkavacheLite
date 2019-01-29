@@ -23,7 +23,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="src\Innofactor.Xrm.Persistent.Collections\bin\Release\Akavache.Backend.dll" target="lib\net452" />
-    <file src="src\Innofactor.Xrm.Persistent.Collections\bin\Release\Xrm.Json.Serialization.dll" target="lib\net452" />
+    <file src="src\Innofactor.Xrm.Persistent.Collections\bin\Release\Innofactor.Xrm.Akavache.Backend.dll" target="lib\net452" />
+    <file src="src\Innofactor.Xrm.Persistent.Collections\bin\Release\Innofactor.Xrm.Json.Serialization.dll" target="lib\net452" />
+    <file src="src\Innofactor.Xrm.Persistent.Collections\bin\Release\Innofactor.Xrm.Persistent.Collections.dll" target="lib\net452" />
   </files>
 </package>
