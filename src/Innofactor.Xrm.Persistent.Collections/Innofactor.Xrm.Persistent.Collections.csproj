@@ -7,8 +7,8 @@
     <ProjectGuid>{B238DA8D-BDCB-46E0-A07E-8C4AB4413D4B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xrm.Persistent.Collections</RootNamespace>
-    <AssemblyName>Xrm.Persistent.Collections</AssemblyName>
+    <RootNamespace>Innofactor.Xrm.Persistent.Collections</RootNamespace>
+    <AssemblyName>Innofactor.Xrm.Persistent.Collections</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
