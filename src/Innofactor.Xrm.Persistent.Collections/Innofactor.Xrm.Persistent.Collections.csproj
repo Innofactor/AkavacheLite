@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Innofactor.Xrm.Json.Serialization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xrm.Json.Serialization.1.0.0\lib\net452\Innofactor.Xrm.Json.Serialization.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.8.2.0.2\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
     </Reference>
@@ -68,10 +71,6 @@
     <ProjectReference Include="..\Innofactor.Xrm.Akavache.Backend\Innofactor.Xrm.Akavache.Backend.csproj">
       <Project>{e7314541-3d26-4c7b-aa5a-50c8e5635a25}</Project>
       <Name>Innofactor.Xrm.Akavache.Backend</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Innofactor.Xrm.Json.Serialization\Innofactor.Xrm.Json.Serialization.csproj">
-      <Project>{19d18e8d-e967-4cbe-8822-617bd1feeaa4}</Project>
-      <Name>Innofactor.Xrm.Json.Serialization</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

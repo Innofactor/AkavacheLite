@@ -110,10 +110,6 @@
       <Project>{e7314541-3d26-4c7b-aa5a-50c8e5635a25}</Project>
       <Name>Innofactor.Xrm.Akavache.Backend</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Innofactor.Xrm.Json.Serialization\Innofactor.Xrm.Json.Serialization.csproj">
-      <Project>{19D18E8D-E967-4CBE-8822-617BD1FEEAA4}</Project>
-      <Name>Innofactor.Xrm.Json.Serialization</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Innofactor.Xrm.Persistent.Collections\Innofactor.Xrm.Persistent.Collections.csproj">
       <Project>{b238da8d-bdcb-46e0-a07e-8c4ab4413d4b}</Project>
       <Name>Innofactor.Xrm.Persistent.Collections</Name>
