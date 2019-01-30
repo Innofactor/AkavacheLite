@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Xrm.Persistent.Collections")]
+[assembly: AssemblyTitle("Innofactor.Xrm.Persistent.Collections")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Xrm.Persistent.Collections")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("Innofactor.Xrm.Persistent.Collections")]
+[assembly: AssemblyCopyright("Copyright © Innofactor AB 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b238da8d-bdcb-46e0-a07e-8c4ab4413d4b")]
+[assembly: Guid("e7314541-3d26-4c7b-aa5a-50c8e5635a25")]
 
 // Version information for an assembly consists of the following four values:
 //

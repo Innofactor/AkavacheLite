@@ -93,7 +93,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityDictionaryTests.cs" />
+    <Compile Include="LocalDictionaryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -106,12 +106,8 @@
     <Analyzer Include="..\..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Innofactor.Xrm.Akavache.Backend\Innofactor.Xrm.Akavache.Backend.csproj">
-      <Project>{e7314541-3d26-4c7b-aa5a-50c8e5635a25}</Project>
-      <Name>Innofactor.Xrm.Akavache.Backend</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Innofactor.Xrm.Persistent.Collections\Innofactor.Xrm.Persistent.Collections.csproj">
-      <Project>{b238da8d-bdcb-46e0-a07e-8c4ab4413d4b}</Project>
+      <Project>{e7314541-3d26-4c7b-aa5a-50c8e5635a25}</Project>
       <Name>Innofactor.Xrm.Persistent.Collections</Name>
     </ProjectReference>
   </ItemGroup>

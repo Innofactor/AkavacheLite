@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Innofactor.Xrm.Persistent.Collections.Backend;
+    using Backend;
     using Newtonsoft.Json;
     using Xrm.Json.Serialization;
 
@@ -167,7 +167,8 @@
             }
         }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => 
+            GetEnumerator();
 
         public bool Remove(TKey key)
         {
