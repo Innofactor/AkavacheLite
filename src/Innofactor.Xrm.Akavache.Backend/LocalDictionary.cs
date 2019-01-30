@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Akavache.Backend;
+    using Innofactor.Xrm.Persistent.Collections.Backend;
     using Newtonsoft.Json;
     using Xrm.Json.Serialization;
 
@@ -194,7 +194,7 @@
                 value = this[key];
                 return value != null;
             }
-            catch (Akavache.Backend.KeyNotFoundException)
+            catch (Backend.KeyNotFoundException)
             {
                 // Will this ever happen?
                 // PersistentBlobCache.GetOrDefault returns empty byte array if the key wasn't found
