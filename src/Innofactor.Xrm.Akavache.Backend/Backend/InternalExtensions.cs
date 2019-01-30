@@ -1,8 +1,8 @@
-﻿namespace Innofactor.Xrm.Akavache.Backend
+﻿namespace Innofactor.Xrm.Persistent.Collections.Backend
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Akavache.Backend.Interfaces;
+    using Interfaces;
 
     internal static class InternalExtensions
     {

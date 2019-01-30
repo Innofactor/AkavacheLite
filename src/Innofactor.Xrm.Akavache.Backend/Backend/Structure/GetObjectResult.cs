@@ -1,14 +1,8 @@
-﻿namespace Innofactor.Xrm.Akavache.Backend.Structure
+﻿namespace Innofactor.Xrm.Persistent.Collections.Backend.Structure
 {
-    internal class CacheItem
+    internal class GetObjectResult
     {
         #region Public Properties
-
-        public long CreatedAt
-        {
-            get;
-            set;
-        }
 
         public byte[] Data
         {
@@ -17,12 +11,6 @@
         }
 
         public string Key
-        {
-            get;
-            set;
-        }
-
-        public long? Time
         {
             get;
             set;

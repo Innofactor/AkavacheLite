@@ -1,7 +1,7 @@
-﻿namespace Innofactor.Xrm.Akavache.Backend.Platforms
+﻿namespace Innofactor.Xrm.Persistent.Collections.Backend.Platforms
 {
     using System;
-    using Akavache.Backend.Interfaces;
+    using Interfaces;
 
     public class WindowsStorageProvider : IStorageProvider
     {

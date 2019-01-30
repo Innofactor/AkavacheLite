@@ -69,25 +69,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlobCache.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="PersistentBlobCache.cs" />
-    <Compile Include="Platforms\AndroidStorageProvider.cs" />
-    <Compile Include="Platforms\AppleiOSStorageProvider.cs" />
-    <Compile Include="Platforms\GenericApplicationStorageProvider.cs" />
-    <Compile Include="Platforms\WindowsStorageProvider.cs" />
-    <Compile Include="Interfaces\IBlobCache.cs" />
-    <Compile Include="Interfaces\IStorageProvider.cs" />
-    <Compile Include="InternalExtensions.cs" />
-    <Compile Include="KeyNotFoundException.cs" />
+    <Compile Include="Backend\BlobCache.cs" />
+    <Compile Include="Backend\Extensions.cs" />
+    <Compile Include="Backend\PersistentBlobCache.cs" />
+    <Compile Include="Backend\Platforms\AndroidStorageProvider.cs" />
+    <Compile Include="Backend\Platforms\AppleiOSStorageProvider.cs" />
+    <Compile Include="Backend\Platforms\GenericApplicationStorageProvider.cs" />
+    <Compile Include="Backend\Platforms\WindowsStorageProvider.cs" />
+    <Compile Include="Backend\Interfaces\IBlobCache.cs" />
+    <Compile Include="Backend\Interfaces\IStorageProvider.cs" />
+    <Compile Include="Backend\InternalExtensions.cs" />
+    <Compile Include="Backend\KeyNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StorageLocation.cs" />
-    <Compile Include="Structure\BinaryItem.cs" />
-    <Compile Include="Structure\CacheItem.cs" />
-    <Compile Include="Structure\DateQueryResult.cs" />
-    <Compile Include="Structure\GetObjectResult.cs" />
-    <Compile Include="Structure\KeyQueryResult.cs" />
-    <Compile Include="Structure\KeyResult.cs" />
+    <Compile Include="Backend\StorageLocation.cs" />
+    <Compile Include="Backend\Structure\BinaryItem.cs" />
+    <Compile Include="Backend\Structure\CacheItem.cs" />
+    <Compile Include="Backend\Structure\DateQueryResult.cs" />
+    <Compile Include="Backend\Structure\GetObjectResult.cs" />
+    <Compile Include="Backend\Structure\KeyQueryResult.cs" />
+    <Compile Include="Backend\Structure\KeyResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

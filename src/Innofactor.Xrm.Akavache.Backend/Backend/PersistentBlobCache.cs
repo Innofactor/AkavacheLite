@@ -1,4 +1,4 @@
-﻿namespace Innofactor.Xrm.Akavache.Backend
+﻿namespace Innofactor.Xrm.Persistent.Collections.Backend
 {
     using System;
     using System.Collections.Generic;
@@ -6,9 +6,9 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Akavache.Backend.Interfaces;
-    using Akavache.Backend.Structure;
+    using Interfaces;
     using SQLite;
+    using Structure;
 
     public class PersistentBlobCache : IBlobCache
     {
@@ -171,7 +171,6 @@
                 return o.Query<CacheItem>(query, DateTime.UtcNow.Ticks)
                     .Select(p => p.Data);
             });
-
 
         // TODO: add to interface
         public Task<IEnumerable<KeyResult>> GetAllKeys()
@@ -401,7 +400,6 @@
 
             return Write(o => o.Execute(sql, key));
         }
-
 
         public Task InvalidateObjects<T>(IEnumerable<string> keys) =>
             Write(db =>

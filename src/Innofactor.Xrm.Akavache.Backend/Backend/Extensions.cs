@@ -1,7 +1,7 @@
-﻿namespace Innofactor.Xrm.Akavache.Backend
+﻿namespace Innofactor.Xrm.Persistent.Collections.Backend
 {
     using System;
-    using Akavache.Backend.Interfaces;
+    using Interfaces;
 
     public static class Extensions
     {

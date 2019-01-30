@@ -1,8 +1,8 @@
-﻿namespace Innofactor.Xrm.Akavache.Backend.Platforms
+﻿namespace Innofactor.Xrm.Persistent.Collections.Backend.Platforms
 {
     using System;
     using System.IO;
-    using Akavache.Backend.Interfaces;
+    using Interfaces;
 
     public class GenericApplicationStorageProvider : IStorageProvider
     {

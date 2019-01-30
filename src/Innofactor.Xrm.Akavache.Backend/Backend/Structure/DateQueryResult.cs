@@ -1,6 +1,6 @@
-﻿namespace Innofactor.Xrm.Akavache.Backend.Structure
+﻿namespace Innofactor.Xrm.Persistent.Collections.Backend.Structure
 {
-    internal class KeyQueryResult
+    internal class DateQueryResult
     {
         #region Public Properties
 
@@ -10,7 +10,7 @@
             set;
         }
 
-        public string Type
+        public long UtcTicks
         {
             get;
             set;

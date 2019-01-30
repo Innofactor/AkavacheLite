@@ -1,8 +1,8 @@
-﻿namespace Innofactor.Xrm.Akavache.Backend
+﻿namespace Innofactor.Xrm.Persistent.Collections.Backend
 {
     using System;
     using System.Linq;
-    using Akavache.Backend.Interfaces;
+    using Interfaces;
 
     // based on the excelent work of Akavache
     public static class BlobCache
@@ -85,7 +85,7 @@
             get
             {
                 // This construction (instead of just ??) is needed to keep CI happy.
-                // To add new roslyn features project upgrade to 4.6.x would be needed, 
+                // To add new roslyn features project upgrade to 4.6.x would be needed,
                 // or building with VS2017 instead of MSBuild. Which is not an option at the moment.
                 if (_storageProvider == null)
                 {

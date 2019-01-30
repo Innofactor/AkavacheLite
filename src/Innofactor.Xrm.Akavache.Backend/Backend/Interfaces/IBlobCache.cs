@@ -1,4 +1,4 @@
-﻿namespace Innofactor.Xrm.Akavache.Backend.Interfaces
+﻿namespace Innofactor.Xrm.Persistent.Collections.Backend.Interfaces
 {
     using System;
     using System.Collections.Generic;
