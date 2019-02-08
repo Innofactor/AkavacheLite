@@ -4,7 +4,9 @@
     using System.Linq;
     using Interfaces;
 
-    // based on the excelent work of Akavache
+    /// <summary>
+    /// based on the excelent work of Akavache
+    /// </summary>
     public static class BlobCache
     {
         #region Private Fields

@@ -148,7 +148,8 @@
             source.ToArray().CopyTo(array, arrayIndex);
         }
 
-        public void Dispose() => cache.Dispose();
+        public void Dispose() => 
+            cache.Dispose();
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
@@ -184,7 +185,8 @@
             }
         }
 
-        public bool Remove(KeyValuePair<TKey, TValue> item) => Remove(item.Key);
+        public bool Remove(KeyValuePair<TKey, TValue> item) => 
+            Remove(item.Key);
 
         public bool TryGetValue(TKey key, out TValue value)
         {

@@ -8,25 +8,55 @@
     {
         #region Public Methods
 
-        // Get a single item
+        /// <summary>
+        /// Get a single item
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         Task<byte[]> Get(string key);
 
-        // Get a list of items
+        /// <summary>
+        /// Get a list of items
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
         Task<IDictionary<string, byte[]>> Get(IEnumerable<string> keys);
 
-        // Get an object serialized via InsertObject
+        /// <summary>
+        /// Get an object serialized via InsertObject
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         Task<byte[]> Get(string key, string type);
 
-        // Get a list of objects given a list of keys
+        /// <summary>
+        /// Get a list of objects given a list of keys
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         Task<IDictionary<string, byte[]>> Get(IEnumerable<string> keys, string type);
 
-        // Get all objects of type T
+        /// <summary>
+        /// Get all objects of type <paramref name="type"/>
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         Task<IEnumerable<byte[]>> GetAll(string type);
 
-        // Return the time which an item was created
+        /// <summary>
+        /// Return the time which an item was created
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         Task<DateTimeOffset?> GetCreatedAt(string key);
 
-        // Return the time which a list of keys were created
+        /// <summary>
+        /// Return the time which a list of keys were created
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
         Task<IDictionary<string, DateTimeOffset?>> GetCreatedAt(IEnumerable<string> keys);
 
         //// Return a list of all keys. Use for debugging purposes only.
@@ -34,45 +64,99 @@
         // Return the time which an object of type T was created
         Task<DateTimeOffset?> GetObjectCreatedAt<T>(string key);
 
-        // Get an object serialized via InsertObject
+        /// <summary>
+        /// Get an object serialized via InsertObject
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         Task<byte[]> GetOrDefault(string key, string type);
 
         /*
          * Save items to the store
          */
 
-        // Insert a single item
+        /// <summary>
+        /// Insert a single item
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="data"></param>
+        /// <param name="absoluteExpiration"></param>
+        /// <returns></returns>
         Task Insert(string key, byte[] data, DateTimeOffset? absoluteExpiration = null);
 
-        // Insert a set of items
+        /// <summary>
+        /// Insert a set of items
+        /// </summary>
+        /// <param name="keyValuePairs"></param>
+        /// <param name="absoluteExpiration"></param>
+        /// <returns></returns>
         Task Insert(IDictionary<string, byte[]> keyValuePairs, DateTimeOffset? absoluteExpiration = null);
 
-        // Insert a single object
+        /// <summary>
+        /// Insert a single object
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="data"></param>
+        /// <param name="type"></param>
+        /// <param name="absoluteExpiration"></param>
+        /// <returns></returns>
         Task Insert(string key, byte[] data, string type, DateTimeOffset? absoluteExpiration = null);
 
-        // Insert a group of objects
+        /// <summary>
+        /// Insert a group of objects
+        /// </summary>
+        /// <param name="keyValuePairs"></param>
+        /// <param name="type"></param>
+        /// <param name="absoluteExpiration"></param>
+        /// <returns></returns>
         Task Insert(IDictionary<string, byte[]> keyValuePairs, string type, DateTimeOffset? absoluteExpiration = null);
 
         /*
          * Remove items from the store
          */
 
-        // Delete a single item
+        /// <summary>
+        /// Delete a single item
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         Task Invalidate(string key);
 
-        // Delete a list of items
+        /// <summary>
+        /// Delete a list of items
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <returns></returns>
         Task Invalidate(IEnumerable<string> keys);
 
-        // Deletes all items (regardless if they are objects or not)
+        /// <summary>
+        /// Deletes all items (regardless if they are objects or not)
+        /// </summary>
+        /// <returns></returns>
         Task InvalidateAll();
 
-        // Deletes all objects of type T
+        /// <summary>
+        /// Deletes all objects of type <typeparamref name="T"/>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         Task InvalidateAllObjects<T>();
 
-        // Delete a single object (do *not* use Invalidate for items inserted with InsertObject!)
+        /// <summary>
+        /// Delete a single object (do *not* use Invalidate for items inserted with InsertObject!)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
         Task InvalidateObject<T>(string key);
 
-        // Deletes a list of objects
+        /// <summary>
+        /// Deletes a list of objects
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="keys"></param>
+        /// <returns></returns>
         Task InvalidateObjects<T>(IEnumerable<string> keys);
 
         /*
@@ -82,8 +166,10 @@
          * Utility methods
          */
 
-        // Preemptively drop all expired keys and run SQLite's VACUUM method on the
-        // underlying database
+        /// <summary>
+        /// Preemptively drop all expired keys and run SQLite's VACUUM method on the underlying database
+        /// </summary>
+        /// <returns></returns>
         Task Vacuum();
 
         #endregion Public Methods
