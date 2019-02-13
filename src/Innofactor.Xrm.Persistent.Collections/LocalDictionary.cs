@@ -51,13 +51,7 @@
             }
         }
 
-        public bool IsReadOnly
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool IsReadOnly => throw new NotImplementedException();
 
         public ICollection<TKey> Keys
         {
