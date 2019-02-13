@@ -84,24 +84,8 @@
 
         public static IStorageProvider StorageProvider
         {
-            get
-            {
-                // This construction (instead of just ??) is needed to keep CI happy.
-                // To add new roslyn features project upgrade to 4.6.x would be needed,
-                // or building with VS2017 instead of MSBuild. Which is not an option at the moment.
-                if (_storageProvider == null)
-                {
-                    throw new Exception($"You must set {nameof(BlobCache)}.{nameof(StorageProvider)} on startup.");
-                }
-                else
-                {
-                    return _storageProvider;
-                }
-            }
-            set
-            {
-                _storageProvider = value;
-            }
+            get => _storageProvider ?? throw new Exception($"You must set {nameof(BlobCache)}.{nameof(StorageProvider)} on startup.");
+            set => _storageProvider = value;
         }
 
         /// <summary>
