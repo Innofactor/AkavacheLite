@@ -151,12 +151,12 @@
 
             foreach (var key in keys)
             {
-                // This piece should not be modernized for sake of CI server
-#pragma warning disable IDE0018 // Inline variable declaration
                 var value = default(TValue);
-#pragma warning restore IDE0018 // Inline variable declaration
 
-                TryGetValue(key, out value);
+                if (TryGetValue(key, out var found))
+                {
+                    value = found;
+                }
 
                 yield return new KeyValuePair<TKey, TValue>(key, value);
             }
