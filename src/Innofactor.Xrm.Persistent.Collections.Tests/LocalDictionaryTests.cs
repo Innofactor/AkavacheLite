@@ -41,7 +41,7 @@
 
             // Act
             dictionary.Add("test", entity);
-            var retrieved = dictionary.TryGetValue("test", out Entity result);
+            var retrieved = dictionary.TryGetValue("test", out var result);
 
             // Assert
             Assert.True(retrieved);
@@ -288,7 +288,7 @@
             // Act
             var p = dbPath;
 
-            var retrieved = dictionary.TryGetValue("test", out Entity result);
+            var retrieved = dictionary.TryGetValue("test", out var result);
 
             // Assert
             Assert.False(retrieved);
