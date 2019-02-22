@@ -56,7 +56,7 @@
                 }
 
                 var directory = Path.GetDirectoryName(_databasePath);
-                if (!Directory.Exists(directory))
+                if (!Directory.Exists(directory) && !string.IsNullOrEmpty(directory))
                 {
                     Directory.CreateDirectory(directory);
                 }
