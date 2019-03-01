@@ -12,7 +12,7 @@
         #region Private Fields
 
         private readonly string dbPath;
-        private readonly LocalDictionary<string, Entity> dictionary;
+        private readonly LocalDictionary<Entity> dictionary;
 
         #endregion Private Fields
 
@@ -23,7 +23,7 @@
             var suffix = Guid.NewGuid();
             dbPath = Path.Combine(Directory.GetCurrentDirectory(), $"{nameof(EntityDictionaryTests)}-{suffix}.db");
 
-            dictionary = new LocalDictionary<string, Entity>(dbPath);
+            dictionary = new LocalDictionary<Entity>(dbPath);
         }
 
         #endregion Public Constructors

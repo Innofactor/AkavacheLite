@@ -9,7 +9,7 @@
     using Newtonsoft.Json;
     using Xrm.Json.Serialization;
 
-    public class LocalDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IDisposable
+    public class LocalDictionary<T> : IDictionary<string, T>, IDisposable
     {
         #region Private Fields
 
@@ -53,26 +53,25 @@
 
         public bool IsReadOnly => throw new NotImplementedException();
 
-        public ICollection<TKey> Keys
+        public ICollection<string> Keys
         {
             get
             {
                 var task = cache.GetAllKeys();
                 task.Wait();
 
-                // Default to string if no key type was set
-                return task.Result.Select(v => (TKey)Convert.ChangeType(v.Key, v.Type ?? typeof(string))).ToList();
+                return task.Result.Select(v => v.Key).ToList();
             }
         }
 
-        public ICollection<TValue> Values
+        public ICollection<T> Values
         {
             get
             {
                 var task = cache.GetAll();
                 task.Wait();
 
-                return task.Result.Select(v => JsonConvert.DeserializeObject<TValue>(Encoding.UTF8.GetString(v))).ToList();
+                return task.Result.Select(v => JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(v))).ToList();
             }
         }
 
@@ -80,18 +79,18 @@
 
         #region Public Indexers
 
-        public TValue this[TKey key]
+        public T this[string key]
         {
             get
             {
-                var task = cache.Get(key.ToString());
+                var task = cache.Get(key);
                 task.Wait();
 
-                return JsonConvert.DeserializeObject<TValue>(Encoding.UTF8.GetString(task.Result));
+                return JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(task.Result));
             }
             set
             {
-                var task = cache.Insert(key.ToString(), Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(value)));
+                var task = cache.Insert(key, Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(value)));
                 task.Wait();
             }
         }
@@ -100,10 +99,10 @@
 
         #region Public Methods
 
-        public void Add(TKey key, TValue value) =>
-            cache.Insert(key.ToString(), Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(value))).Wait();
+        public void Add(string key, T value) =>
+            cache.Insert(key, Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(value))).Wait();
 
-        public void Add(KeyValuePair<TKey, TValue> item) =>
+        public void Add(KeyValuePair<string, T> item) =>
             Add(item.Key, item.Value);
 
         public void Clear()
@@ -112,7 +111,7 @@
             cache.Vacuum().Wait();
         }
 
-        public bool Contains(KeyValuePair<TKey, TValue> item)
+        public bool Contains(KeyValuePair<string, T> item)
         {
             var task = cache.Get(item.Key.ToString());
             task.Wait();
@@ -122,17 +121,17 @@
             return task.Result.SequenceEqual(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(item.Value)));
         }
 
-        public bool ContainsKey(TKey key)
+        public bool ContainsKey(string key)
         {
-            var task = cache.Get(key.ToString());
+            var task = cache.Get(key);
             task.Wait();
 
             return task.Result.Length > 0;
         }
 
-        public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
+        public void CopyTo(KeyValuePair<string, T>[] array, int arrayIndex)
         {
-            var source = new List<KeyValuePair<TKey, TValue>>();
+            var source = new List<KeyValuePair<string, T>>();
 
             foreach (var item in this)
             {
@@ -142,34 +141,34 @@
             source.ToArray().CopyTo(array, arrayIndex);
         }
 
-        public void Dispose() => 
+        public void Dispose() =>
             cache.Dispose();
 
-        public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
+        public IEnumerator<KeyValuePair<string, T>> GetEnumerator()
         {
             var keys = Keys;
 
             foreach (var key in keys)
             {
-                var value = default(TValue);
+                var value = default(T);
 
                 if (TryGetValue(key, out var found))
                 {
                     value = found;
                 }
 
-                yield return new KeyValuePair<TKey, TValue>(key, value);
+                yield return new KeyValuePair<string, T>(key, value);
             }
         }
 
-        IEnumerator IEnumerable.GetEnumerator() => 
+        IEnumerator IEnumerable.GetEnumerator() =>
             GetEnumerator();
 
-        public bool Remove(TKey key)
+        public bool Remove(string key)
         {
             try
             {
-                var task = cache.InvalidateObject(key.ToString());
+                var task = cache.InvalidateObject(key);
                 task.Wait();
                 return true;
             }
@@ -179,12 +178,12 @@
             }
         }
 
-        public bool Remove(KeyValuePair<TKey, TValue> item) => 
+        public bool Remove(KeyValuePair<string, T> item) =>
             Remove(item.Key);
 
-        public bool TryGetValue(TKey key, out TValue value)
+        public bool TryGetValue(string key, out T value)
         {
-            value = default(TValue);
+            value = default(T);
 
             try
             {
