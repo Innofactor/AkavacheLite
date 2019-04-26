@@ -25,11 +25,13 @@
             {
                 Converters = new List<JsonConverter>()
                 {
+                    new DateTimeConverter(),
                     new EntityCollectionConverter(),
                     new EntityConverter(),
                     new EntityReferenceConverter(),
+                    new GuidConverter(),
                     new MoneyConverter(),
-                    new OptionSetConvertor()
+                    new OptionSetConverter()
                 }
             };
 
