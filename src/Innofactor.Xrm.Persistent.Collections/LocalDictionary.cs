@@ -53,7 +53,8 @@
             }
         }
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly =>
+            throw new NotImplementedException();
 
         public ICollection<string> Keys
         {
