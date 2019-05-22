@@ -25,6 +25,7 @@
             {
                 Converters = new List<JsonConverter>()
                 {
+                    new BasicsConverter(),
                     new DateTimeConverter(),
                     new EntityCollectionConverter(),
                     new EntityConverter(),
